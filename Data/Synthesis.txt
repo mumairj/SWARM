@@ -1,0 +1,27 @@
+Swarm Scenario: See notes.
+
+Important tables:
+- chunk
+- chunk_author_relation
+- chunk_parent_relation;
+- chunk_state
+- chunk_type_relation
+- chunk_user_group_relation
+- content_type
+- event
+- metric
+- metric_aggregate
+- metric_band
+- metric_value
+- perm_user_group
+- perm_user_group_member
+- reputation
+- rubric
+- rubric_metric_relation
+- subscription
+- type
+- user
+
+Personal Insights:
+- Distinct parent_relations are: description, comment, " ", suggestedChange, hypothesis
+- Hierarchy is as: " " (Parent) -> hypothesis -> comment|description|suggestedChange

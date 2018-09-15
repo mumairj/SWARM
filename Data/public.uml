@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>05320672-be89-400d-b0dc-7188dcd328d1.SCHEMA:postgres.public</OriginalElement>
+  <nodes>
+    <node x="34.76157407407413" y="268.0">05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.perm_permission</node>
+    <node x="1163.0" y="727.5">05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.chunk_user_group_relation</node>
+    <node x="1924.0" y="727.5">05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.chunk_type_relation</node>
+    <node x="67.75" y="935.0">05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.message</node>
+    <node x="2572.949074074074" y="727.5">05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.rubric_metric_relation</node>
+    <node x="2266.5" y="213.0">05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.metric</node>
+    <node x="2596.199074074074" y="246.0">05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.rubric</node>
+    <node x="1500.0" y="0.0">05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.chunk_state</node>
+    <node x="986.0" y="716.0">05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.chunk_author_relation</node>
+    <node x="380.0" y="705.0">05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.perm_user_group_member</node>
+    <node x="1202.75" y="924.0">05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.alembic_version</node>
+    <node x="972.75" y="924.0">05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.token_blacklist</node>
+    <node x="379.5" y="1159.5">05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.message_event</node>
+    <node x="1279.3310185185185" y="290.0">05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.tag</node>
+    <node x="697.5" y="0.0">05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.reputation</node>
+    <node x="662.75" y="924.0">05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.subscription</node>
+    <node x="2082.0" y="661.0">05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.metric_aggregate</node>
+    <node x="352.75" y="924.0">05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.event</node>
+    <node x="1509.0" y="705.0">05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.chunk_parent_relation</node>
+    <node x="2028.4490740740741" y="290.0">05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.type</node>
+    <node x="0.0" y="1115.0">05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.message_user</node>
+    <node x="654.5" y="191.0">05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.user</node>
+    <node x="1517.5" y="125.0">05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.chunk</node>
+    <node x="207.0" y="705.0">05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.perm_user_permission</node>
+    <node x="1357.0" y="727.5">05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.chunk_tag_relation</node>
+    <node x="1720.1875" y="0.0">05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.content_type</node>
+    <node x="2372.949074074074" y="683.0">05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.metric_band</node>
+    <node x="1725.1875" y="180.0">05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.multimedia</node>
+    <node x="351.5" y="268.0">05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.perm_user_group</node>
+    <node x="759.0" y="683.0">05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.create_portal</node>
+    <node x="1043.7615740740741" y="290.0">05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.author_role</node>
+    <node x="574.0" y="727.5">05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.multimedia_user_relation</node>
+    <node x="1724.0" y="650.0">05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.metric_value</node>
+    <node x="0.0" y="705.0">05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.perm_user_group_permission</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.message_user" target="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.message">
+      <point x="0.0" y="-81.5" />
+      <point x="-66.25" y="59.5" />
+    </edge>
+    <edge source="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.rubric_metric_relation" target="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.metric">
+      <point x="-36.75" y="-37.0" />
+      <point x="2609.699074074074" y="620.0" />
+      <point x="2438.0" y="620.0" />
+      <point x="73.5" y="114.5" />
+    </edge>
+    <edge source="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.message_event" target="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.message">
+      <point x="-35.25" y="-37.0" />
+      <point x="414.75" y="1090.0" />
+      <point x="266.5" y="1090.0" />
+      <point x="66.25" y="59.5" />
+    </edge>
+    <edge source="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.multimedia_user_relation" target="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.user">
+      <point x="0.0" y="-37.0" />
+      <point x="656.5" y="630.0" />
+      <point x="742.0" y="630.0" />
+      <point x="-17.5" y="136.5" />
+    </edge>
+    <edge source="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.chunk_author_relation" target="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.author_role">
+      <point x="0.0" y="-48.5" />
+      <point x="1064.5" y="630.0" />
+      <point x="1105.7615740740741" y="630.0" />
+      <point x="0.0" y="37.5" />
+    </edge>
+    <edge source="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.perm_user_permission" target="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.user">
+      <point x="38.25" y="-59.5" />
+      <point x="321.75" y="610.0" />
+      <point x="672.0" y="610.0" />
+      <point x="-87.5" y="136.5" />
+    </edge>
+    <edge source="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.chunk" target="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.content_type">
+      <point x="44.5" y="-202.5" />
+      <point x="1651.0" y="100.0" />
+      <point x="1751.1875" y="100.0" />
+      <point x="-31.0" y="37.5" />
+    </edge>
+    <edge source="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.message_event" target="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.event">
+      <point x="35.25" y="-37.0" />
+      <point x="0.0" y="70.5" />
+    </edge>
+    <edge source="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.metric_value" target="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.chunk">
+      <point x="0.0" y="-114.5" />
+      <point x="1814.0" y="570.0" />
+      <point x="1639.875" y="570.0" />
+      <point x="33.375" y="202.5" />
+    </edge>
+    <edge source="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.metric_aggregate" target="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.metric">
+      <point x="52.75" y="-103.5" />
+      <point x="2240.25" y="630.0" />
+      <point x="2340.0" y="630.0" />
+      <point x="-24.5" y="114.5" />
+    </edge>
+    <edge source="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.chunk_tag_relation" target="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.tag">
+      <point x="-33.0" y="-37.0" />
+      <point x="1390.0" y="590.0" />
+      <point x="1344.8310185185185" y="590.0" />
+      <point x="0.0" y="37.5" />
+    </edge>
+    <edge source="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.user" target="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.reputation">
+      <point x="0.0" y="-136.5" />
+      <point x="0.0" y="37.5" />
+    </edge>
+    <edge source="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.chunk_parent_relation" target="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.chunk">
+      <point x="-48.75" y="-59.5" />
+      <point x="1557.75" y="630.0" />
+      <point x="1595.375" y="630.0" />
+      <point x="-11.125" y="202.5" />
+    </edge>
+    <edge source="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.rubric_metric_relation" target="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.rubric">
+      <point x="36.75" y="-37.0" />
+      <point x="0.0" y="81.5" />
+    </edge>
+    <edge source="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.chunk" target="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.chunk_state">
+      <point x="-44.5" y="-202.5" />
+      <point x="0.0" y="37.5" />
+    </edge>
+    <edge source="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.perm_user_group_member" target="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.user">
+      <point x="43.5" y="-59.5" />
+      <point x="510.5" y="620.0" />
+      <point x="707.0" y="620.0" />
+      <point x="-52.5" y="136.5" />
+    </edge>
+    <edge source="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.chunk_user_group_relation" target="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.chunk">
+      <point x="43.5" y="-37.0" />
+      <point x="1293.5" y="610.0" />
+      <point x="1550.875" y="610.0" />
+      <point x="-55.625" y="202.5" />
+    </edge>
+    <edge source="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.metric_band" target="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.metric">
+      <point x="0.0" y="-81.5" />
+      <point x="2462.949074074074" y="630.0" />
+      <point x="2389.0" y="630.0" />
+      <point x="24.5" y="114.5" />
+    </edge>
+    <edge source="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.metric_aggregate" target="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.chunk">
+      <point x="-52.75" y="-103.5" />
+      <point x="2134.75" y="550.0" />
+      <point x="1684.375" y="550.0" />
+      <point x="77.875" y="202.5" />
+    </edge>
+    <edge source="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.metric_value" target="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.user">
+      <point x="-60.0" y="-114.5" />
+      <point x="1754.0" y="580.0" />
+      <point x="847.0" y="580.0" />
+      <point x="87.5" y="136.5" />
+    </edge>
+    <edge source="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.create_portal" target="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.user">
+      <point x="0.0" y="-81.5" />
+      <point x="862.5" y="630.0" />
+      <point x="777.0" y="630.0" />
+      <point x="17.5" y="136.5" />
+    </edge>
+    <edge source="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.multimedia" target="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.content_type">
+      <point x="0.0" y="-147.5" />
+      <point x="31.0" y="37.5" />
+    </edge>
+    <edge source="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.perm_user_group_permission" target="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.perm_user_group">
+      <point x="46.75" y="-59.5" />
+      <point x="140.25" y="600.0" />
+      <point x="375.5" y="600.0" />
+      <point x="-48.0" y="59.5" />
+    </edge>
+    <edge source="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.perm_user_group_permission" target="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.perm_permission">
+      <point x="-46.75" y="-59.5" />
+      <point x="46.75" y="630.0" />
+      <point x="70.76157407407413" y="630.0" />
+      <point x="-36.0" y="59.5" />
+    </edge>
+    <edge source="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.chunk_type_relation" target="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.chunk">
+      <point x="-34.5" y="-37.0" />
+      <point x="1958.5" y="560.0" />
+      <point x="1662.125" y="560.0" />
+      <point x="55.625" y="202.5" />
+    </edge>
+    <edge source="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.chunk_tag_relation" target="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.chunk">
+      <point x="33.0" y="-37.0" />
+      <point x="1456.0" y="620.0" />
+      <point x="1573.125" y="620.0" />
+      <point x="-33.375" y="202.5" />
+    </edge>
+    <edge source="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.metric_value" target="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.metric">
+      <point x="60.0" y="-114.5" />
+      <point x="1874.0" y="620.0" />
+      <point x="2291.0" y="620.0" />
+      <point x="-73.5" y="114.5" />
+    </edge>
+    <edge source="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.chunk_author_relation" target="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.chunk">
+      <point x="52.33333333333326" y="-48.5" />
+      <point x="1116.8333333333333" y="600.0" />
+      <point x="1528.625" y="600.0" />
+      <point x="-77.875" y="202.5" />
+    </edge>
+    <edge source="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.chunk_type_relation" target="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.type">
+      <point x="34.5" y="-37.0" />
+      <point x="2027.5" y="610.0" />
+      <point x="2087.449074074074" y="610.0" />
+      <point x="0.0" y="37.5" />
+    </edge>
+    <edge source="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.perm_user_permission" target="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.perm_permission">
+      <point x="-38.25" y="-59.5" />
+      <point x="245.25" y="590.0" />
+      <point x="142.76157407407413" y="590.0" />
+      <point x="36.0" y="59.5" />
+    </edge>
+    <edge source="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.perm_user_group_member" target="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.perm_user_group">
+      <point x="-43.5" y="-59.5" />
+      <point x="0.0" y="59.5" />
+    </edge>
+    <edge source="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.chunk_author_relation" target="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.user">
+      <point x="-52.33333333333326" y="-48.5" />
+      <point x="1012.1666666666667" y="620.0" />
+      <point x="812.0" y="620.0" />
+      <point x="52.5" y="136.5" />
+    </edge>
+    <edge source="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.chunk_user_group_relation" target="05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.perm_user_group">
+      <point x="-43.5" y="-37.0" />
+      <point x="1206.5" y="590.0" />
+      <point x="471.5000000000001" y="590.0" />
+      <point x="48.000000000000114" y="59.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.47426810477657944" x="828.8219623131902" y="519.0706791948662" />
+  <SelectedNodes>
+    <node>05320672-be89-400d-b0dc-7188dcd328d1.TABLE:postgres.public.perm_permission</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Key columns</Category>
+    <Category>Columns</Category>
+  </Categories>
+</Diagram>
+
