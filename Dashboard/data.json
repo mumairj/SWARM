@@ -1,0 +1,45 @@
+{
+  "2007": [{
+    "name": "Black Site Surveillance",
+    "values": {
+      "#ofHypothesis": 3,
+      "#ofCommDesc": 4,
+      "#TotalPosts": 5
+    }
+  }, {
+    "name": "Drug Interdiction",
+    "values": {
+      "#ofHypothesis": 2,
+      "#ofCommDesc": 5,
+      "#TotalPosts": 4
+    }
+  }, {
+    "name": "How Did Arthur Allen Die?",
+    "values": {
+      "#ofHypothesis": 5,
+      "#ofCommDesc": 3,
+      "#TotalPosts": 2
+    }
+  }, {
+    "name": "Kalukistan",
+    "values": {
+      "#ofHypothesis": 1,
+      "#ofCommDesc": 6,
+      "#TotalPosts": 7
+    }
+  }, {
+    "name": "Three Nations",
+    "values": {
+      "#ofHypothesis": 5,
+      "#ofCommDesc": 3,
+      "#TotalPosts": 2
+     }
+	}, {
+    "name": "Who Is the Spy?",
+    "values": {
+      "#ofHypothesis": 5,
+      "#ofCommDesc": 3,
+      "#TotalPosts": 2
+    }
+  }]
+}	

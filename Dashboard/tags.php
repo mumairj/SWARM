@@ -141,7 +141,20 @@
             );
 
         node.append("circle")
-            .attr("r", function(d){ return d.id>2 ? 8 : 3; })
+            .attr("r", function(d){ 
+			var weight;
+			
+			if(d.id>3)
+			{
+				weight=5;
+			}
+			else
+			{
+				weight=10;
+			}
+			
+			return weight;
+			})
             .style("fill", function (d, i) {return colors(i);})
 
         node.append("title")
@@ -149,7 +162,9 @@
 
         node.append("text")
             .attr("dy", -3)
-            .text(function (d) {return d.name+":"+d.label;});
+            .text(function (d) {
+				return d.name+":"+d.label;
+				});
 
         simulation
             .nodes(nodes)

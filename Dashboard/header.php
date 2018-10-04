@@ -10,10 +10,7 @@
     <title>SWARM Analytics</title>
     <!-- Bootstrap Core CSS -->
     <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
-    <link href="css/lib/calendar2/semantic.ui.min.css" rel="stylesheet">
-    <link href="css/lib/calendar2/pignose.calendar.min.css" rel="stylesheet">
-    <link href="css/lib/owl.carousel.min.css" rel="stylesheet" />
-    <link href="css/lib/owl.theme.default.min.css" rel="stylesheet" />
+    <!-- Custom CSS -->
     <link href="css/helper.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 	<!-- Java Scripts-->

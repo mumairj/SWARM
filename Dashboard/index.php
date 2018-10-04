@@ -1,130 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php 
-/*
-//Education
-$responseAurinEducation = file_get_contents('http://115.146.95.134:5984/aurin_edu_occ_index/_design/view/_view/edu_occ_percentile');
-$responseAurinEducation = json_decode($responseAurinEducation, true);
-$resultEducation=$responseAurinEducation['rows'];
-$ignoredsuburbEducation = 'N/A';
-$percentageArrayEducation=array();
-foreach($resultEducation as $itemEducation){
-    $percentageEducation = $itemEducation['value']; 
-    $suburbKeyEducation = $itemEducation['key'];
-    //echo $item['key']."=>".$item['value'][0]."=>".$item['value'][1]."<br>";
-    if($suburbKeyEducation==$ignoredsuburbEducation)
-    {
-        continue;
-    }
+<?php include 'header.php';?>
 
-    $percentageArrayEducation[$suburbKeyEducation] = $percentageEducation;  
-}
-
-
-//Economic
-$responseAurinEconomic = file_get_contents('http://115.146.95.134:5984/aurin_eco_res_index/_design/view/_view/eco_res_percentile');
-$responseAurinEconomic = json_decode($responseAurinEconomic, true);
-$resultEconomic=$responseAurinEconomic['rows'];
-$ignoredsuburbEconomic = 'N/A';
-$percentageArrayEconomic=array();
-foreach($resultEconomic as $itemEconomic){
-    $percentageEconomic = $itemEconomic['value']; 
-    $suburbKeyEconomic = $itemEconomic['key'];
-    //echo $item['key']."=>".$item['value'][0]."=>".$item['value'][1]."<br>";
-    if($suburbKeyEconomic==$ignoredsuburbEconomic)
-    {
-        continue;
-    }
-
-    $percentageArrayEconomic[$suburbKeyEconomic] = $percentageEconomic;  
-}
-
-
-//Born Overseas
-$responseAurin = file_get_contents('http://115.146.95.134:5984/aurin_born_overseas/_design/percentage/_view/percentage_overseas_aus');
-$responseAurin = json_decode($responseAurin, true);
-$result=$responseAurin['rows'];
-$ignoredsuburb = 'N/A';
-$percentageArray= array();
-foreach($result as $item){
-    $overseasPercentage = $item['value'][0]; 
-    $suburbKey = $item['key'];
-    //echo $item['key']."=>".$item['value'][0]."=>".$item['value'][1]."<br>";
-    if($suburbKey==$ignoredsuburb)
-    {
-        continue;
-    }
-
-    $percentageArray[$suburbKey] = $overseasPercentage;  
-}
-
-
-//Marital Code.
-$responseMarital = file_get_contents('http://115.146.95.134:5984/aurin_marital/_design/suburbs/_view/details');
-$responseMarital = json_decode($responseMarital, true);
-$resultMarital=$responseMarital['rows'];
-//echo '------>'.$responseMarital;
-
-$maritalArray=array();
-$i=0;
-foreach($resultMarital as $itemMarital) {
-	$sub=$itemMarital['key'];
-	$p_tot_total=$itemMarital['value']['p_tot_total'];
-	$p_tot_not_married=$itemMarital['value']['p_tot_not_married'];
-	$p_tot_marrd_reg_marrge=$itemMarital['value']['p_tot_marrd_reg_marrge'];
-	$p_tot_married_de_facto=$itemMarital['value']['p_tot_married_de_facto'];
-	$totalPeople=$p_tot_total;
-	$notMarriedPeoplePerc=round((($p_tot_not_married*100)/$totalPeople),2);
-	$regMarriedPeoplePerc=round((($p_tot_marrd_reg_marrge*100)/$totalPeople),2);
-	$defMarriedPeoplePerc=round((($p_tot_married_de_facto*100)/$totalPeople),2);
-	//echo $sub.': Not Married %'.$notMarriedPeoplePerc.' | Reg Married %'.$regMarriedPeoplePerc.' | Fed Married %'.$defMarriedPeoplePerc.'<br>';
-	$maritalArray[$sub]=$regMarriedPeoplePerc+$defMarriedPeoplePerc;																								;
-	$i=$i+1;
- }
-
-//Sentiments
-$responsePositive = file_get_contents('http://115.146.95.134:5984/harvest_final/_design/suburbwisesents/_view/positive?group_level=1&reduce=true&sorted=true');
-$responseNegative = file_get_contents('http://115.146.95.134:5984/harvest_final/_design/suburbwisesents/_view/negative?group_level=1&reduce=true&sorted=true');
-$responsePositive = json_decode($responsePositive, true);
-$resultPositive=$responsePositive['rows'];
-
-$highMapDataPosPerc="[";
-$np=0;
-//Negative tweets process!
-$responseNegative = json_decode($responseNegative, true);
-$resultNegative=$responseNegative['rows'];
-foreach($resultNegative as $itemNegative) {
-	foreach($resultPositive as $itemPositive) {
-		if($itemNegative['key']==$itemPositive['key'])
-		{
+<style type="text/css">
+        .node {
 			
-			$sub=$itemNegative['key'];
-			$sentPos=$itemPositive['value'];
-			$sentNeg=$itemNegative['value'];
-			$sentTotal=$sentPos+$sentNeg;
-			$sentPosPerc=round((($sentPos*100)/$sentTotal),2);
-			$sentNegPerc=round((($sentNeg*100)/$sentTotal),2);
-			//echo "Suburb has positive and negative tweets: ".$itemNegative['key']."|".$itemPositive['key']."|".$sentTotal."=".$sentPos."+".$sentNeg."->Pos%:".$sentPosPerc."->Neg%:".$sentNegPerc."<br>";
-			if($np==0)
-			{
-				$highMapDataPosPerc=$highMapDataPosPerc."["."'".$sub."',".$sentPosPerc."]";
-			}
-			else
-			{
-				$highMapDataPosPerc=$highMapDataPosPerc.",['".$sub."',".$sentPosPerc."]";
-			}
-			$np=$np+1;
-			break;
 		}
-	}
-}
-$highMapDataPosPerc=$highMapDataPosPerc."]";
-*/
-?>
-
-<style>
-* {
+        .link { 
+		stroke: #999; 
+		stroke-opacity: .6; 
+		}
+		
+		* {
   box-sizing: border-box;
 }
 body {
@@ -176,19 +64,13 @@ input[type=submit] {
   background-color: DodgerBlue !important; 
   color: #ffffff; 
 }
+		
 </style>
 
-
-<?php include 'header.php';?>
-
 <body class="fix-header fix-sidebar">
-    <!-- Preloader - style you can find in spinners.css -->
-    <div class="preloader">
-        <svg class="circular" viewBox="25 25 50 50">
-			<circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
-    </div>
-    <!-- Main wrapper  -->
-    <div id="main-wrapper">
+
+	
+	    <div id="main-wrapper">
         <!-- header header  -->
         <div class="header">
 			<?php include 'nav.php';?>
@@ -200,46 +82,312 @@ input[type=submit] {
             <!-- Bread crumb -->
             <div class="row page-titles">
                 <div class="col-md-5 align-self-center">
-                    <h3 class="text-primary">Dashboard</h3> </div>
+                    <h3 class="text-primary">Basics</h3> </div>
                 <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item">Home</li>
-                        <!-- <li class="breadcrumb-item active">Dashboard</li> -->
+                        <li class="breadcrumb-item">Interactions</li>
+                        <li class="breadcrumb-item active">User Tags</li>
                     </ol>
                 </div>
             </div>
             <!-- End Bread crumb -->
             <!-- Container fluid  -->
             <div class="container-fluid">
+			
                 <!-- Start Page Content -->
-				
-				<div class="row">
+                <div class="row">
+				<div class="col-md-3">
 				<span class="input-group-btn"><button class="btn btn-primary" type="submit"><i class="ti-search"></i></button></span>
 				  <div class="autocomplete">
-					<input id="myInput" type="text" name="myCountry" placeholder="Search Suburb">
+					<input id="myInput" type="text" name="myCountry" placeholder="Search Question">
 				  </div>
-				</div>
-				<br><br>
-				
+				  </div>
+				<div class="col-md-3">
+				                <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Team
+											<span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">HTML</a></li>
+                                        <li><a href="#">CSS</a></li>
+                                        <li><a href="#">JavaScript</a></li>
+                                    </ul>
+                                </div>
+				</div>	  
+                </div>
+
                 <div class="row bg-white m-l-0 m-r-0 box-shadow ">
-
+				<!--<button id="update">Test</button>-->
                     <!-- column -->
-                    <div class="col-lg-8">
-						<div id="containerMap"></div>
+                    <div class="col-lg-12">
 						
+						<svg id="myGraph" width="800" height="500"></svg>
+
+<script src="http://d3js.org/d3.v4.min.js" type="text/javascript"></script>
+<script src="http://d3js.org/d3-selection-multi.v1.js"></script>
+
+<script type="text/javascript">
+	
+	window.onload = function() {
+
+	};
+	
+	function testButton()
+	{
+		//svg.selectAll("*").remove();
+	   var dataString = 'test';
+	   $.ajax({
+        type:'POST',
+        data:dataString,
+        url:'getdata.php',
+        success:function(data) {
+			console.log(data);
+			var obj1 = JSON.stringify(data);
+			var obj2 = JSON.parse(data);	
+			//draw_graph(data);			
+			console.log(obj2.links);
+			d3.select('#myGraph').html("");
+			updateOnClick(obj2.links,obj2.nodes);
+			}
+		});
+	}
+	
+	
+	function getTeamInteraction(myQuestion,myTeam)
+	{
+		//svg.selectAll("*").remove();
+	   var dataString = 'test';
+	   $.ajax({
+        type:'POST',
+        data:dataString,
+        url:'getdata.php',
+        success:function(data) {
+			console.log(data);
+			var obj1 = JSON.stringify(data);
+			var obj2 = JSON.parse(data);	
+			//draw_graph(data);			
+			console.log(obj2.links);
+			d3.select('#myGraph').html("");
+			updateOnClick(obj2.links,obj2.nodes);
+			}
+		});
+	}
+	
+	function updateOnClick(links,nodes)
+	{
+		
+		d3.select("svg"),
+        width = +svg.attr("width"),
+        height = +svg.attr("height"),
+        node,
+        link;
+		
+		svg.append('defs').append('marker')
+        .attrs({'id':'arrowhead',
+            'viewBox':'-0 -5 10 10',
+            'refX':13,
+            'refY':0,
+            'orient':'auto',
+            'markerWidth':13,
+            'markerHeight':13,
+            'xoverflow':'visible'})
+        .append('svg:path')
+        .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
+        .attr('fill', '#999')
+        .style('stroke','none');
+		
+		d3.forceSimulation()
+        .force("link", d3.forceLink().id(function (d) {return d.id;}).distance(200).strength(1))
+        .force("charge", d3.forceManyBody())
+        .force("center", d3.forceCenter(width/2, height/2));
+		
+		    link = svg.selectAll(".link")
+            .data(links)
+            .enter()
+            .append("line")
+			.attr("stroke-width", function(d){ return 1; })
+            .attr("class", "link")
+            .attr('marker-end','url(#arrowhead)')
+
+        link.append("title")
+            .text(function (d) {return d.type;});
+
+        edgepaths = svg.selectAll(".edgepath")
+            .data(links)
+            .enter()
+            .append('path')
+            .attrs({
+                'class': 'edgepath',
+                'fill-opacity': 0,
+                'stroke-opacity': 0,
+                'id': function (d, i) {return 'edgepath' + i}
+            })
+            .style("pointer-events", "none");
+
+        node = svg.selectAll(".node")
+            .data(nodes)
+            .enter()
+            .append("g")
+            .attr("class", "node")
+            .call(d3.drag()
+                    .on("start", dragstarted)
+                    .on("drag", dragged)
+                    //.on("end", dragended)
+            );
+
+        node.append("circle")
+            .attr("r", function(d){ 
+			var weight;
+	
+			
+			return 5;
+			})
+            .style("fill", function (d, i) {return colors(i);})
+
+        node.append("title")
+            .text(function (d) {return d.id;});
+
+        node.append("text")
+            .attr("dy", -3)
+            .text(function (d) {
+				return d.name;
+				});
+
+        simulation
+            .nodes(nodes)
+            .on("tick", ticked);
+
+        simulation.force("link")
+            .links(links);
+	}
+
+
+    var colors = d3.scaleOrdinal(d3.schemeCategory10);
+
+    var svg = d3.select("svg"),
+        width = +svg.attr("width"),
+        height = +svg.attr("height"),
+        node,
+        link;
+
+    svg.append('defs').append('marker')
+        .attrs({'id':'arrowhead',
+            'viewBox':'-0 -5 10 10',
+            'refX':13,
+            'refY':0,
+            'orient':'auto',
+            'markerWidth':13,
+            'markerHeight':13,
+            'xoverflow':'visible'})
+        .append('svg:path')
+        .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
+        .attr('fill', '#999')
+        .style('stroke','none');
+
+    var simulation = d3.forceSimulation()
+        .force("link", d3.forceLink().id(function (d) {return d.id;}).distance(200).strength(1))
+        .force("charge", d3.forceManyBody())
+        .force("center", d3.forceCenter(width/2, height/2));
+
+
+    function update(links, nodes) {
+        link = svg.selectAll(".link")
+            .data(links)
+            .enter()
+            .append("line")
+			.attr("stroke-width", function(d){ return 1; })
+            .attr("class", "link")
+            .attr('marker-end','url(#arrowhead)')
+
+        link.append("title")
+            .text(function (d) {return d.type;});
+
+        edgepaths = svg.selectAll(".edgepath")
+            .data(links)
+            .enter()
+            .append('path')
+            .attrs({
+                'class': 'edgepath',
+                'fill-opacity': 0,
+                'stroke-opacity': 0,
+                'id': function (d, i) {return 'edgepath' + i}
+            })
+            .style("pointer-events", "none");
+
+        node = svg.selectAll(".node")
+            .data(nodes)
+            .enter()
+            .append("g")
+            .attr("class", "node")
+            .call(d3.drag()
+                    .on("start", dragstarted)
+                    .on("drag", dragged)
+                    //.on("end", dragended)
+            );
+
+        node.append("circle")
+            .attr("r", function(d){ 
+			var weight;
+	
+			
+			return d.weight;
+			})
+            .style("fill", function (d, i) {return colors(i);})
+
+        node.append("title")
+            .text(function (d) {return d.id;});
+
+        node.append("text")
+            .attr("dy", -3)
+            .text(function (d) {
+				return d.name;
+				});
+
+        simulation
+            .nodes(nodes)
+            .on("tick", ticked);
+
+        simulation.force("link")
+            .links(links);
+    }
+
+    function ticked() {
+        link
+            .attr("x1", function (d) {return d.source.x;})
+            .attr("y1", function (d) {return d.source.y;})
+            .attr("x2", function (d) {return d.target.x;})
+            .attr("y2", function (d) {return d.target.y;});
+
+        node
+            .attr("transform", function (d) {return "translate(" + d.x + ", " + d.y + ")";});
+
+        edgepaths.attr('d', function (d) {
+            return 'M ' + d.source.x + ' ' + d.source.y + ' L ' + d.target.x + ' ' + d.target.y;
+        });
+
+    }
+
+    function dragstarted(d) {
+        if (!d3.event.active) simulation.alphaTarget(0.3).restart()
+        d.fx = d.x;
+        d.fy = d.y;
+    }
+
+    function dragged(d) {
+        d.fx = d3.event.x;
+        d.fy = d3.event.y;
+    }
+
+				</script>
                     </div>
                     <!-- column -->
 
-                    <!-- column -->
-                    <div class="col-lg-4">
-     
-						  <div id="containerStats"></div>
-                    </div>
-                    <!-- column -->
+
+					
                 </div>
  
                 <!-- End PAge Content -->
             </div>
+		
             <!-- End Container fluid  -->
             <!-- footer -->
 			<?php include 'footer.php';?>
@@ -247,234 +395,15 @@ input[type=submit] {
         </div>
         <!-- End Page wrapper  -->
     </div>
-    <!-- End Wrapper -->
 <?php include 'footerScripts.php';?>
 
-<script src="code/highcharts.js"></script>
-<script src="code/map.js"></script>
-
-</body>
-
+	</body>
+</html>
 <script>
-
-  var pausecontent = new Array();
-    <?php foreach($maritalArray as $x => $x_value) {?>
-        pausecontent['<?php echo $x; ?>']= '<?php echo $x_value; ?>';
-    <?php } ?>
-
-	  var overseas = new Array();
-    <?php foreach($percentageArray as $y => $y_value) {?>
-        overseas['<?php echo $y; ?>']= '<?php echo $y_value; ?>';
-    <?php } ?>
-
-		  var education = new Array();
-    <?php foreach($percentageArrayEducation as $z => $z_value) {?>
-        education['<?php echo $z; ?>']= '<?php echo $z_value; ?>';
-    <?php } ?>
-
-		  var economic = new Array();
-    <?php foreach($percentageArrayEconomic as $a => $a_value) {?>
-        economic['<?php echo $a; ?>']= '<?php echo $a_value; ?>';
-    <?php } ?>
-
-	<?php 
-	$allSuburbs="[";
-	foreach($percentageArrayEconomic as $a => $a_value) {
-	$allSuburbs=$allSuburbs.'"'.$a.'",';
-	}
-	$allSuburbs=rtrim($allSuburbs);
-	$allSuburbs=$allSuburbs."]";
-	?>
-	
-
-// Prepare random data
-var data = <?php echo $highMapDataPosPerc; ?>;
-
-$.getJSON('allsuburbsTagged.geo.json', function (geojson) {
-
-    // Initiate the chart
-    Highcharts.mapChart('containerMap', {
-        chart: {
-            map: geojson
-        },
-
-        title: {
-            text: 'Positivity Suburb Wise!'
-        },
-
-        mapNavigation: {
-            enabled: true,
-            buttonOptions: {
-                verticalAlign: 'bottom'
-            }
-        },
-
-        colorAxis: {
-            tickPixelInterval: 100,
-			minColor: '#62de62', 
-			maxColor: '#059805'
-        },
-		/*
-		tooltip: {
-            backgroundColor: '#BDE1EF',
-            borderWidth: 5,
-            shadow: false,
-            useHTML: true,
-            pointFormat: '<span class="f32"><span class="flag {point.flag}"></span></span>' +
-                ' {point.name}: <b>{point.value}</b>/km²'
-        },
-		*/
-        series: [{
-            data: data,
-            keys: ['name', 'value'],
-            joinBy: 'name',
-            name: 'Happiness%',
-            states: {
-                hover: {
-                    color: '#a4edba'
-                }
-            },
-            dataLabels: {
-                enabled: true,
-                format: '{point.properties.postal}'
-            },
-			point:{
-                events:{
-                    click: function(){
-                        //alert(this.name);
-						var chart = $('#containerStats').highcharts();
-						 chart.xAxis[0].update({
-						title:{
-						text: this.name
-						}
-					});
-					
-					for (var x in pausecontent)
-					{
-						if(x==this.name)
-						{
-						var intvalue = Math.trunc( pausecontent[this.name] );
-						console.log("Hello: "+intvalue);
-						
-						chart = $('#containerStats').highcharts();
-						chart.series[0].data[0].update(intvalue);
-	
-						break;
-						}
-						
-					}
-					
-					for (var y in overseas)
-					{
-						if(y==this.name)
-						{
-						var intvalue = Math.trunc( overseas[this.name] );
-						console.log("Overseas%: "+intvalue);
-						
-						chart = $('#containerStats').highcharts();
-						chart.series[1].data[0].update(intvalue);
-						break;
-						}
-						
-					}
-					
-					console.log(education);
-					for (var z in education)
-					{
-						if(z==this.name)
-						{
-						var intvalue = Math.trunc( education[this.name] );
-						console.log("education%: "+intvalue);
-						
-						chart = $('#containerStats').highcharts();
-						chart.series[2].data[0].update(intvalue);
-						break;
-						}
-						
-					}
-					
-					console.log(economic);
-					for (var a in economic)
-					{
-						if(a==this.name)
-						{
-						var intvalue = Math.trunc( economic[this.name] );
-						console.log("economic%: "+intvalue);
-						
-						chart = $('#containerStats').highcharts();
-						chart.series[3].data[0].update(intvalue);
-						break;
-						}
-						
-					}
-					
-					//chart.series[1].data[0].update(55);
-                    }
-                }
-            }
-        }]
-    });
+$("#update").click(function(e) {
+	testButton();
 });
 
-
-		var a;
-Highcharts.chart('containerStats', {
-    chart: {
-        type: 'column'
-    },
-    title: {
-        text: 'Comparision Indexes'
-    },
-    subtitle: {
-        text: 'Aurin'
-    },
-    xAxis: {
-        categories: [
-            'Suburb'
-        ],
-        crosshair: true
-    },
-    yAxis: {
-        min: 0,
-        title: {
-            text: 'Percentage'
-        }
-    },
-    tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} % </b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true
-    },
-    plotOptions: {
-        column: {
-            pointPadding: 0.2,
-            borderWidth: 0
-        }
-    },
-    series: [{
-        name: 'Marriage',
-        data: [0]
-
-    }
-	, {
-        name: 'Overseas',
-       data: [0]
-    
-    }
-	, {
-        name: 'Education/Occupation',
-        data: [0]
-    
-    }, {
-        name: 'Economic',
-        data: [0]
-    
-    }
-	]
-});
 
 function autocomplete(inp, arr) {
   /*the autocomplete function takes two arguments,
@@ -569,84 +498,83 @@ function autocomplete(inp, arr) {
   }
   /*execute a function when someone clicks in the document:*/
   document.addEventListener("click", function (e) {
-	  mySuburb=e.target.textContent;
-	  console.log(e.target.textContent);
-	  					for (var x in pausecontent)
-					{
-						if(x==mySuburb)
-						{
-						var intvalue = Math.trunc( pausecontent[mySuburb] );
-						console.log("Hello: "+intvalue);
-						
-						chart = $('#containerStats').highcharts();
-						chart.series[0].data[0].update(intvalue);
-	
-						break;
-						}
-						
-					}
-					
-					for (var y in overseas)
-					{
-						if(y==mySuburb)
-						{
-						var intvalue = Math.trunc( overseas[mySuburb] );
-						console.log("Overseas%: "+intvalue);
-						
-						chart = $('#containerStats').highcharts();
-						chart.series[1].data[0].update(intvalue);
-						break;
-						}
-						
-					}
-					
-					console.log(education);
-					for (var z in education)
-					{
-						if(z==mySuburb)
-						{
-						var intvalue = Math.trunc( education[mySuburb] );
-						console.log("education%: "+intvalue);
-						
-						chart = $('#containerStats').highcharts();
-						chart.series[2].data[0].update(intvalue);
-						break;
-						}
-						
-					}
-					
-					console.log(economic);
-					for (var a in economic)
-					{
-						if(a==mySuburb)
-						{
-						var intvalue = Math.trunc( economic[mySuburb] );
-						console.log("economic%: "+intvalue);
-						
-						chart = $('#containerStats').highcharts();
-						chart.series[3].data[0].update(intvalue);
-						break;
-						}
-						
-					}
-	  
+	  myQuestion=e.target.textContent;
+	  //console.log(e.target.textContent);
+	  populateTeams(myQuestion);
       closeAllLists(e.target);
       });
 }
 
-/*An array containing all the country names in the world:*/
-var countries = <?php echo $allSuburbs?>;
+function populateTeams(myQuestion)
+{
+	console.log("Check-1");
+	var last_name = 'N/A';
+	var dataString = 'myQuestion='+myQuestion+'&last_name='+last_name;
+	
+	   $.ajax({
+       type:'POST',
+       data:dataString,
+       url:'get_teams.php',
+	   dataType: 'json',
+       success:function(data) {
+		$('.dropdown-menu').empty();
+		for (var i = 0; i < data.length; i++) {
+			console.log("====>"+data[i]);
+			$('.dropdown-menu').append('<li><a href="#" onclick="deactive_tiptip();"><span class="tab">'+data[i]+'</span></a></li>');
+        }
+		
+		}
+	});
+}
+
+window.onload = function() {
+   var dataString = 'test';
+   $.ajax({
+       type:'POST',
+       data:dataString,
+       url:'get_questions.php',
+	   dataType: 'json',
+       success:function(data) {
+		
+		var questions=[];
+		
+		for (var i = 0; i < data.length; i++) {
+            questions[i]=data[i];
+        }
+		//console.log(questions);
+		autocomplete(document.getElementById("myInput"), questions);
+		//var questions=[data];
+		//questions = data;
+		//printQuestions(questions);
+		}
+	});
+	
+		   var dataString = 'test';
+	   $.ajax({
+        type:'POST',
+        data:dataString,
+        url:'get_tags.php',
+        success:function(data) {
+			//console.log(data);
+			var obj1 = JSON.stringify(data);
+			var obj2 = JSON.parse(data);			
+			//console.log(obj2.links);
+			update(obj2.links,obj2.nodes);
+			}
+		});
+	
+};
+
+
+function printQuestions(questions)
+{
+	console.log(questions);
+	var qst=questions;
+	console.log("----)"+qst.length)
+	autocomplete(document.getElementById("myInput"), qst);
+}
 
 /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-autocomplete(document.getElementById("myInput"), countries);
+//autocomplete(document.getElementById("myInput"), questions);
+
 </script>
-
-
-
-<style>
-.f32 .flag {
-    vertical-align: middle !important;
-}
-</style>
-
-</html>
