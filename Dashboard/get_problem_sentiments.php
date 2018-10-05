@@ -16,7 +16,7 @@ else
 }
 
 $problem = $_POST['problem'];
-
+//
 $sql = <<<EOF
 select
        X.comment_due_date,
