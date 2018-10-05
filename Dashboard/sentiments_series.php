@@ -54,18 +54,21 @@
       background-color: DodgerBlue !important; 
       color: #ffffff; 
       }
-      .chart {
-      min-width: 320px;
-      max-width: 800px;
-      height: 220px;
-      margin: 0 auto;
-      }
+  #container {
+  min-width: 310px;
+  max-width: 100%;
+  height: 400px;
+  margin: 0 auto
+}
       .playerOne {
       float: left;
       }
       .playerTwo {
       float: right;
       }
+	  
+	  
+	  
    </style>
    <!-- http://doc.jsfiddle.net/use/hacks.html#css-panel-hack -->
    <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -97,9 +100,7 @@
             <div class="container-fluid">
                <!-- Start Page Content -->
                <div class="row">
-					<button id="button">2013</button>
-					<button id="button2">2014</button>
-		
+				<!--<button onclick="getDataFromServer('Drugs!');">Test</button>-->
                   <div class="col-md-12">
                      <div class="playerOne">
                         <span class="input-group-btn"><button class="btn btn-primary" type="submit"><i class="ti-search"></i></button></span>
@@ -117,12 +118,13 @@
                      </div>
                   </div>
                </div>
+       
                <hr />
                <div class="row bg-white m-l-0 m-r-0 box-shadow ">
                   <!--<button id="update">Test</button>-->
                   <!-- column -->
                   <div class="col-lg-12">
-                     <div id="container" style="height: 400px; min-width: 310px; max-width: 100%; margin: 0 auto"></div>
+					<div id="container"></div>
                   </div>
                   <!-- column -->
                </div>
@@ -253,33 +255,15 @@
 				for (var i = 0; i < data.length; i++) {
 					questions[i]=data[i];
 				}
-				console.log(questions);
+				//console.log(questions);
 				autocomplete(document.getElementById("myInput"), questions);
 				//var questions=[data];
 				//questions = data;
 				//printQuestions(questions);
 				}
          	});
-         	
-         	var dataString = 'displayName='+"dingo409";
-         	   $.ajax({
-                type:'POST',
-                data:dataString,
-                url:'get_user_profile.php',
-         	   dataType: 'json',
-                success:function(data) {
-         		console.log("Data: "+data);
-         		//displayChart(data);
-         		//var users=[];
-         		//for (var i = 0; i < data.length; i++) {
-                 //    users[i]=data[i];
-                 //}
-         		//console.log(questions);
-         		
-         		
-         		
-         		}
-         	});
+			
+			getDataFromServer('Drugs!');
          	
          };
          
@@ -292,214 +276,159 @@
          mouse/touch event handler to bind the charts together.
          */
          
-         
-		 
-
-
          Highcharts.chart('container', {
-         	
-           chart: {
-             type: 'heatmap',
-             marginTop: 40,
-             marginBottom: 80,
-             plotBorderWidth: 1
-           },
-         
-         
-           title: {
-             text: 'Sales per employee per weekday'
-           },
-         
-           xAxis: {
-             categories: ['Alexander', 'Marie', 'Maximilian', 'Sophia', 'Lukas', 'Maria', 'Leon', 'Anna', 'Tim', 'Laura']
-           },
-         
-           yAxis: {
-             categories: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-             title: null
-           },
-         
-           colorAxis: {
-             min: 0,
-             minColor: '#FFFFFF',
-             maxColor: Highcharts.getOptions().colors[0]
-           },
-         
-           legend: {
-             align: 'right',
-             layout: 'vertical',
-             margin: 0,
-             verticalAlign: 'top',
-             y: 25,
-             symbolHeight: 280
-           },
-         
-           tooltip: {
-             formatter: function () {
-               return '<b>' + this.series.xAxis.categories[this.point.x] + '</b> sold <br><b>' +
-                 this.point.value + '</b> items on <br><b>' + this.series.yAxis.categories[this.point.y] + '</b>';
-             }
-           },
-         
-           series: [{
-             name: 'Sales per employee',
-             borderWidth: 1,
-             data: [[0, 0, 10], [0, 1, 19], [0, 2, 8], [0, 3, 24], [0, 4, 67], [1, 0, 92], [1, 1, 58], [1, 2, 78], [1, 3, 117], [1, 4, 48], [2, 0, 35], [2, 1, 15], [2, 2, 123], [2, 3, 64], [2, 4, 52], [3, 0, 72], [3, 1, 132], [3, 2, 114], [3, 3, 19], [3, 4, 16], [4, 0, 38], [4, 1, 5], [4, 2, 8], [4, 3, 117], [4, 4, 115], [5, 0, 88], [5, 1, 32], [5, 2, 12], [5, 3, 6], [5, 4, 120], [6, 0, 13], [6, 1, 44], [6, 2, 88], [6, 3, 98], [6, 4, 96], [7, 0, 31], [7, 1, 1], [7, 2, 82], [7, 3, 32], [7, 4, 30], [8, 0, 85], [8, 1, 97], [8, 2, 123], [8, 3, 64], [8, 4, 84], [9, 0, 47], [9, 1, 114], [9, 2, 31], [9, 3, 48], [9, 4, 91]],
-             dataLabels: {
-               enabled: true,
-               color: '#000000'
-             }
-           }]
-         
-         });
+
+  title: {
+    text: 'Solar Employment Growth by Sector, 2010-2016'
+  },
+
+  subtitle: {
+    text: 'Source: thesolarfoundation.com'
+  },
+
+  yAxis: {
+    title: {
+      text: 'Number of Employees'
+    }
+  },
+  legend: {
+    layout: 'vertical',
+    align: 'right',
+    verticalAlign: 'middle'
+  },
+
+  plotOptions: {
+    series: {
+      label: {
+        connectorAllowed: false
+      },
+      pointStart: 2010
+    }
+  },
+
+  series: [{
+    name: 'Installation',
+    data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
+  }, {
+    name: 'Manufacturing',
+    data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434]
+  }, {
+    name: 'Sales & Distribution',
+    data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]
+  }, {
+    name: 'Project Development',
+    data: [null, null, 7988, 12169, 15112, 22452, 34400, 34227]
+  }, {
+    name: 'Other',
+    data: [12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111]
+  }],
+
+  responsive: {
+    rules: [{
+      condition: {
+        maxWidth: 500
+      },
+      chartOptions: {
+        legend: {
+          layout: 'horizontal',
+          align: 'center',
+          verticalAlign: 'bottom'
+        }
+      }
+    }]
+  }
+
+});
 		 
-		
-		var i=1;
-		 $('#button').click(function() {
-			 	var chart = $('#container').highcharts();
-		chart.destroy();
-			 
-		Highcharts.chart('container', {
-         	
-           chart: {
-             type: 'heatmap',
-             marginTop: 40,
-             marginBottom: 80,
-             plotBorderWidth: 1
-           },
-         
-         
-           title: {
-             text: 'Sales per employee per weekday'
-           },
-         
-           xAxis: {
-             categories: ['Alexander', 'Marie', 'Maximilian', 'Sophia', 'Lukas', 'Maria', 'Leon', 'Anna', 'Tim', 'Laura']
-           },
-         
-           yAxis: {
-             categories: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Saturday'],
-             title: null
-           },
-         
-           colorAxis: {
-             min: 0,
-             minColor: '#FFFFFF',
-             maxColor: Highcharts.getOptions().colors[0]
-           },
-         
-           legend: {
-             align: 'right',
-             layout: 'vertical',
-             margin: 0,
-             verticalAlign: 'top',
-             y: 25,
-             symbolHeight: 280
-           },
-         
-           tooltip: {
-             formatter: function () {
-               return '<b>' + this.series.xAxis.categories[this.point.x] + '</b> sold <br><b>' +
-                 this.point.value + '</b> items on <br><b>' + this.series.yAxis.categories[this.point.y] + '</b>';
-             }
-           },
-         
-           series: [{
-             name: 'Sales per employee',
-             borderWidth: 1,
-             data: [[0, 0, 50], [0, 1, 19], [0, 2, 8], [0, 3, 24], [0, 4, 67], [1, 0, 92], [1, 1, 58], [1, 2, 78], [1, 3, 117], [1, 4, 48], [2, 0, 35], [2, 1, 15], [2, 2, 123], [2, 3, 64], [2, 4, 52], [3, 0, 72], [3, 1, 132], [3, 2, 114], [3, 3, 19], [3, 4, 16], [4, 0, 38], [4, 1, 5], [4, 2, 8], [4, 3, 117], [4, 4, 115], [5, 0, 88], [5, 1, 32], [5, 2, 12], [5, 3, 6], [5, 4, 120], [6, 0, 13], [6, 1, 44], [6, 2, 88], [6, 3, 98], [6, 4, 96], [7, 0, 31], [7, 1, 1], [7, 2, 82], [7, 3, 32], [7, 4, 30], [8, 0, 85], [8, 1, 97], [8, 2, 123], [8, 3, 64], [8, 4, 84], [9, 0, 47], [9, 1, 114], [9, 2, 31], [9, 3, 48], [9, 4, 91]],
-             dataLabels: {
-               enabled: true,
-               color: '#000000'
-             }
-           }]
-         
-         });
-		
-			});
-			
-			
-	function problem_stats(title)
-	{
-		
-			var dataString = 'title='+"dingo409";
-		   $.ajax({
-			type:'POST',
-			data:dataString,
-			url:'get_problem_sentiments.php',
-		   dataType: 'json',
-			success:function(data) {
-			console.log("Data: "+data);
-			//displayChart(data);
-			//var users=[];
-			//for (var i = 0; i < data.length; i++) {
-			 //    users[i]=data[i];
-			 //}
-			//console.log(questions);
-			
-		var chart = $('#container').highcharts();
-		chart.destroy();
-			 
-		Highcharts.chart('container', {
-         	
-           chart: {
-             type: 'heatmap',
-             marginTop: 40,
-             marginBottom: 80,
-             plotBorderWidth: 1
-           },
-         
-         
-           title: {
-             text: 'Sales per employee per weekday'
-           },
-         
-           xAxis: {
-             categories: ['Alexander', 'Marie', 'Maximilian', 'Sophia', 'Lukas', 'Maria', 'Leon', 'Anna', 'Tim', 'Laura']
-           },
-         
-           yAxis: {
-             categories: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Saturday'],
-             title: null
-           },
-         
-           colorAxis: {
-             min: 0,
-             minColor: '#FFFFFF',
-             maxColor: Highcharts.getOptions().colors[0]
-           },
-         
-           legend: {
-             align: 'right',
-             layout: 'vertical',
-             margin: 0,
-             verticalAlign: 'top',
-             y: 25,
-             symbolHeight: 280
-           },
-         
-           tooltip: {
-             formatter: function () {
-               return '<b>' + this.series.xAxis.categories[this.point.x] + '</b> sold <br><b>' +
-                 this.point.value + '</b> items on <br><b>' + this.series.yAxis.categories[this.point.y] + '</b>';
-             }
-           },
-         
-           series: [{
-             name: 'Sales per employee',
-             borderWidth: 1,
-             data: [[0, 0, 50], [0, 1, 19], [0, 2, 8], [0, 3, 24], [0, 4, 67], [1, 0, 92], [1, 1, 58], [1, 2, 78], [1, 3, 117], [1, 4, 48], [2, 0, 35], [2, 1, 15], [2, 2, 123], [2, 3, 64], [2, 4, 52], [3, 0, 72], [3, 1, 132], [3, 2, 114], [3, 3, 19], [3, 4, 16], [4, 0, 38], [4, 1, 5], [4, 2, 8], [4, 3, 117], [4, 4, 115], [5, 0, 88], [5, 1, 32], [5, 2, 12], [5, 3, 6], [5, 4, 120], [6, 0, 13], [6, 1, 44], [6, 2, 88], [6, 3, 98], [6, 4, 96], [7, 0, 31], [7, 1, 1], [7, 2, 82], [7, 3, 32], [7, 4, 30], [8, 0, 85], [8, 1, 97], [8, 2, 123], [8, 3, 64], [8, 4, 84], [9, 0, 47], [9, 1, 114], [9, 2, 31], [9, 3, 48], [9, 4, 91]],
-             dataLabels: {
-               enabled: true,
-               color: '#000000'
-             }
-           }]
-         
-         });
-	}
-			
+
+
+function getDataFromServer(problem)
+{
+		console.log(problem+"===="+problem);
+		//svg.selectAll("*").remove();
+	   var dataString = 'problem='+problem;
+	   $.ajax({
+        type:'POST',
+        data:dataString,
+		dataType: 'json',
+        url:'get_problem_sentiments.php',
+        success:function(data) {
+			console.log(data);
+			//var obj1String = JSON.stringify(data);
+			//var obj2Json = JSON.parse(data);				
+			console.log("JSON from server: "+data);
+			displayData(data);
 			}
 		});
+
+}	
+		 
+ function displayData(data)
+ {
+	var chart = $('#container').highcharts();
+	
+	chart.destroy();
+	
+	Highcharts.chart('container', {
+
+  title: {
+    text: 'Solar Employment Growth by Sector, 2010-2016'
+  },
+
+  subtitle: {
+    text: 'Source: thesolarfoundation.com'
+  },
+
+  yAxis: {
+    title: {
+      text: 'Number of Comments!'
+    }
+  },
+  
+  xAxis: {
+    categories: data.dateRange
+	},
+  
+  legend: {
+    layout: 'vertical',
+    align: 'right',
+    verticalAlign: 'middle'
+  },
+
+  plotOptions: {
+    series: {
+      label: {
+        connectorAllowed: false
+      }
+    }
+  },
+
+  series: [{
+    name: 'Positive Comments',
+    data: data.positiveComments
+  }, {
+    name: 'Negative Comments',
+    data: data.negativeComments
+  }],
+
+  responsive: {
+    rules: [{
+      condition: {
+        maxWidth: 500
+      },
+      chartOptions: {
+        legend: {
+          layout: 'horizontal',
+          align: 'center',
+          verticalAlign: 'bottom'
+        }
+      }
+    }]
+  }
+
+});
+		
+		 }
 		
 		
 		
