@@ -110,8 +110,8 @@
                      </div>
                      <div class="playerTwo">
                         <div class="dropdown">
-                           <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Team<span class="caret"></span></button>
-                           <ul class="dropdown-menu">
+                           <button id="dbutton" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Team<span class="caret"></span></button>
+                           <ul id="dmenue" class="dropdown-menu">
 						   <li><a href="#">Select Problem</a></li>
                            </ul>
                         </div>
@@ -175,7 +175,9 @@
                        /*insert the value for the autocomplete text field:*/
                        inp.value = this.getElementsByTagName("input")[0].value;
          			  //displayUserProfile(inp.value);
-         			  console.log(inp.value);
+					   populateTeams(inp.value);
+         			   getDataFromServer(inp.value,null);
+					   console.log(inp.value);
                        /*close the list of autocompleted values,
                        (or any other open lists of autocompleted values:*/
                        closeAllLists();
@@ -241,7 +243,7 @@
          
          window.onload = function() {
          $('.col-lg-12').width();
-         	console.log("Test!");
+         	console.log("Initiating...");
             var dataString = 'test';
             $.ajax({
                 type:'POST',
@@ -255,108 +257,66 @@
 				for (var i = 0; i < data.length; i++) {
 					questions[i]=data[i];
 				}
-				//console.log(questions);
 				autocomplete(document.getElementById("myInput"), questions);
-				//var questions=[data];
-				//questions = data;
-				//printQuestions(questions);
 				}
          	});
-			
-			getDataFromServer('Drugs!');
          	
          };
          
-         
-         
-         /*
-         The purpose of this demo is to demonstrate how multiple charts on the same page
-         can be linked through DOM and Highcharts events and API methods. It takes a
-         standard Highcharts config with a small variation for each data set, and a
-         mouse/touch event handler to bind the charts together.
-         */
-         
-         Highcharts.chart('container', {
 
-  title: {
-    text: 'Solar Employment Growth by Sector, 2010-2016'
-  },
-
-  subtitle: {
-    text: 'Source: thesolarfoundation.com'
-  },
-
-  yAxis: {
-    title: {
-      text: 'Number of Employees'
-    }
-  },
-  legend: {
-    layout: 'vertical',
-    align: 'right',
-    verticalAlign: 'middle'
-  },
-
-  plotOptions: {
-    series: {
-      label: {
-        connectorAllowed: false
-      },
-      pointStart: 2010
-    }
-  },
-
-  series: [{
-    name: 'Installation',
-    data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
-  }, {
-    name: 'Manufacturing',
-    data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434]
-  }, {
-    name: 'Sales & Distribution',
-    data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]
-  }, {
-    name: 'Project Development',
-    data: [null, null, 7988, 12169, 15112, 22452, 34400, 34227]
-  }, {
-    name: 'Other',
-    data: [12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111]
-  }],
-
-  responsive: {
-    rules: [{
-      condition: {
-        maxWidth: 500
-      },
-      chartOptions: {
-        legend: {
-          layout: 'horizontal',
-          align: 'center',
-          verticalAlign: 'bottom'
+ function populateTeams(problem)
+{
+	
+	console.log("Problem: "+problem);
+	var last_name = 'N/A';
+	var dataString = 'myQuestion='+problem;
+	
+	   $.ajax({
+       type:'POST',
+       data:dataString,
+       url:'get_teams.php',
+	   dataType: 'json',
+       success:function(data) {
+		$('.dropdown-menu').empty();
+		dataLength=data.length;
+		console.log(data.length);
+		for (var i = 0; i < data.length; i++) {
+			//var splitData = data[i].split(",");
+			//console.log("====>"+data[i][1]);
+			var teamName=data[i][1].trim();
+			var teamID=data[i][0].trim();
+			$('.dropdown-menu').append('<li><a  href="javascript:getDataFromServer(\''+problem+'\',\''+teamName+'\');" ><span class="tab">'+teamName+'</span></a></li>');
         }
-      }
-    }]
-  }
+		
+		}
+	});
+}
+
+$(function(){
+
+    $("#dmenue").on('click', 'li a', function(){
+      $("#dbutton:first-child").text($(this).text());
+      $("#dbutton:first-child").val($(this).text());
+   });
 
 });
 		 
-
-
-function getDataFromServer(problem)
+function getDataFromServer(problem,team)
 {
-		console.log(problem+"===="+problem);
-		//svg.selectAll("*").remove();
-	   var dataString = 'problem='+problem;
+	   console.log("Problem: "+problem+" | Team: "+team);
+	   
+		
+	
+	   var dataString = 'problem='+problem+"&team="+team;
+	   
 	   $.ajax({
         type:'POST',
         data:dataString,
 		dataType: 'json',
         url:'get_problem_sentiments.php',
         success:function(data) {
-			console.log(data);
-			//var obj1String = JSON.stringify(data);
-			//var obj2Json = JSON.parse(data);				
-			console.log("JSON from server: "+data);
+			console.log(data);			
+			//console.log("JSON from server: "+data);
 			displayData(data);
 			}
 		});
@@ -367,16 +327,19 @@ function getDataFromServer(problem)
  {
 	var chart = $('#container').highcharts();
 	
-	chart.destroy();
+	if(chart)
+	{
+		chart.destroy();
+	}
 	
 	Highcharts.chart('container', {
 
   title: {
-    text: 'Solar Employment Growth by Sector, 2010-2016'
+    text: 'Number of Comments on a Date'
   },
 
   subtitle: {
-    text: 'Source: thesolarfoundation.com'
+    text: 'Source: Swarm\'18'
   },
 
   yAxis: {
@@ -409,6 +372,12 @@ function getDataFromServer(problem)
   }, {
     name: 'Negative Comments',
     data: data.negativeComments
+  },{
+    name: 'Neutral Comments',
+    data: data.neutralComments
+  },{
+    name: 'Total Comments',
+    data: data.totalComments
   }],
 
   responsive: {
