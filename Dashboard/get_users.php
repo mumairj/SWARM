@@ -16,7 +16,7 @@ else
 }
 
 $sql = <<<EOF
-select distinct display_name from mat_view_user_posts_frequency;
+select distinct display_name from "user";
 EOF;
 
 $ret = pg_query($db, $sql);

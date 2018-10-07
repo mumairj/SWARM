@@ -105,7 +105,7 @@
                      <div class="playerOne">
                         <span class="input-group-btn"><button class="btn btn-primary" type="submit"><i class="ti-search"></i></button></span>
                         <div class="autocomplete">
-                           <input id="myInput" type="text" name="myProblem" placeholder="Search User">
+                           <input id="myInput" type="text" name="myProblem" placeholder="Search Problem">
                         </div>
                      </div>
                   </div>
@@ -238,7 +238,7 @@
             $.ajax({
                 type:'POST',
                 data:dataString,
-                url:'get_users.php',
+                url:'get_questions.php',
          	   dataType: 'json',
                 success:function(data) {
          		//console.log(data);
@@ -251,7 +251,7 @@
 				}
          	});
 			
-			//getDataFromServer("boobook364");
+			//getDataFromServer("Drug Interdiction");
          	
          };
          
@@ -266,19 +266,19 @@ $(function(){
 
 });
 		 
-function getDataFromServer(user)
+function getDataFromServer(problem)
 {
-	   console.log("user: "+user);
+	   console.log("problem: "+problem);
 	   
 		
 	
-	   var dataString = 'user='+user;
+	   var dataString = 'problem='+problem;
 	   
 	   $.ajax({
         type:'POST',
         data:dataString,
 		dataType: 'json',
-        url:'get_user_profile.php',
+        url:'get_problem_profile.php',
         success:function(data) {
 			console.log(data);			
 			//console.log("JSON from server: "+data);
@@ -302,19 +302,20 @@ Highcharts.chart('container', {
     type: 'column'
   },
   title: {
-    text: 'User Profile'
+    text: 'Problem Profile'
   },
   subtitle: {
     text: 'Source: Swarm'
   },
   xAxis: {
-    categories: data.problems,
+    categories: data.teams,
     crosshair: true
   },
   yAxis: {
     min: 0,
+	max:100,
     title: {
-      text: 'Number of Posts'
+      text: 'Rating'
     }
   },
   tooltip: {
@@ -332,20 +333,12 @@ Highcharts.chart('container', {
     }
   },
   series: [{
-    name: 'Hyp',
-    data: data.hyp
+    name: 'Team Rating',
+    data: data.teamrating
 
   }, {
-    name: 'Comm',
-    data: data.comm
-
-  }, {
-    name: 'Desc',
-    data: data.desc
-
-  },{
-    name: 'Total Posts',
-    data: data.total
+    name: 'OP Rating',
+    data: data.onplatform
 
   }]
 });	

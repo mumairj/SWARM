@@ -16,7 +16,7 @@ else
 }
 
 $sql = <<<EOF
-select distinct title from chunk where parent_id is null;
+select distinct title from chunk where parent_id is null and deleted=false;
 EOF;
 
 $ret = pg_query($db, $sql);
