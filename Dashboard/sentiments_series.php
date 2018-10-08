@@ -121,12 +121,11 @@
        
                <hr />
                <div class="row bg-white m-l-0 m-r-0 box-shadow ">
-                  <!--<button id="update">Test</button>-->
-                  <!-- column -->
+
                   <div class="col-lg-12">
 					<div id="container"></div>
                   </div>
-                  <!-- column -->
+        
                </div>
                <!-- End PAge Content -->
             </div>
@@ -260,6 +259,8 @@
 				autocomplete(document.getElementById("myInput"), questions);
 				}
          	});
+			
+			getDataFromServer("Drug Interdiction",null);
          	
          };
          
@@ -397,9 +398,17 @@ function getDataFromServer(problem,team)
 
 });
 		
-		 }
+}
 		
-		
+if ($(window).width() < 480 || $(window).height() < 480) {
+    //small screen, load other JS files
+   console.log("TeSt!");
+   $(".playerOne").css("left","30px");
+   $(".playerOne").css("position","relative");
+   $(".playerTwo").css("right","100px");
+   $(".playerTwo").css("top","5px");
+   $(".playerTwo").css("position","relative");
+}		
 		
 		 
          

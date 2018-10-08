@@ -169,11 +169,11 @@ float: right;
         data:dataString,
         url:'getdata.php',
         success:function(data) {
-			console.log(data);
+			//console.log(data);
 			var obj1 = JSON.stringify(data);
 			var obj2 = JSON.parse(data);	
 			//draw_graph(data);			
-			console.log(obj2.links);
+			//console.log(obj2.links);
 			d3.select('#myGraph').html("");
 			updateOnClick(obj2.links,obj2.nodes);
 			}
@@ -183,7 +183,7 @@ float: right;
 	
 	function getInteraction(teamName,myQuestion)
 	{
-		console.log(teamName+"===="+myQuestion);
+		//console.log(teamName+"===="+myQuestion);
 		//svg.selectAll("*").remove();
 	   var dataString = 'myQuestion='+myQuestion+'&teamName='+teamName;
 	   $.ajax({
@@ -191,7 +191,7 @@ float: right;
         data:dataString,
         url:'get_team_interaction.php',
         success:function(data) {
-			console.log(data);
+			//console.log(data);
 			var obj1 = JSON.stringify(data);
 			var obj2 = JSON.parse(data);	
 			//draw_graph(data);			
@@ -538,7 +538,7 @@ function populateTeams(myQuestion)
        success:function(data) {
 		$('.dropdown-menu').empty();
 		dataLength=data.length;
-		console.log(data.length);
+		//console.log(data.length);
 		for (var i = 0; i < data.length; i++) {
 			//var splitData = data[i].split(",");
 			//console.log("====>"+data[i][1]);
@@ -565,7 +565,7 @@ window.onload = function() {
 		for (var i = 0; i < data.length; i++) {
             questions[i]=data[i];
         }
-		console.log(questions);
+		//console.log(questions);
 		autocomplete(document.getElementById("myInput"), questions);
 		//var questions=[data];
 		//questions = data;
@@ -579,13 +579,17 @@ window.onload = function() {
         data:dataString,
         url:'get_tags.php',
         success:function(data) {
-			console.log(data);
+			//console.log(data);
 			var obj1 = JSON.stringify(data);
 			var obj2 = JSON.parse(data);			
 			//console.log(obj2.links);
+			
 			update(obj2.links,obj2.nodes);
+			
 			}
 		});
+		
+		//$("svg").width($(".col-lg-12").width());
 	
 };
 
@@ -597,6 +601,8 @@ function printQuestions(questions)
 	console.log("----)"+qst.length)
 	autocomplete(document.getElementById("myInput"), qst);
 }
+
+
 
 /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
 //autocomplete(document.getElementById("myInput"), questions);

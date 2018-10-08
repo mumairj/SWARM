@@ -172,13 +172,39 @@
                </div>
        
                <hr />
-               <div class="row bg-white m-l-0 m-r-0 box-shadow ">
-                  <!--<button id="update">Test</button>-->
-                  <!-- column -->
+			   
+			  <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card">
+							<div id="containerComments"></div>
+                        </div>
+                        <!-- /# card -->
+                    </div>
+                    <!-- /# column -->
+					
+					<div class="col-lg-4">
+                        <div class="card">
+							<div id="containerPings"></div>
+                        </div>
+                        <!-- /# card -->
+                    </div>
+                    <!-- /# column -->
+
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div id="containerSentiments"></div>
+                        </div>
+                        <!-- /# card -->
+                    </div>
+                    <!-- /# column -->
+                </div>
+			   
+                <div class="row bg-white m-l-0 m-r-0 box-shadow ">
+
                   <div class="col-lg-12">
-					<div id="container"></div>
+					<div id="containerTimeline"></div>
                   </div>
-                  <!-- column -->
+        
                </div>
                <!-- End PAge Content -->
             </div>
@@ -191,9 +217,12 @@
       </div>
       <?php include 'footerScripts.php';?>
       <script src="code/highcharts.js"></script>
-      <script src="code/map.js"></script>
+      <script src="code/highcharts-3d.js"></script>
       <script src="https://code.highcharts.com/modules/data.js"></script>
       <script>
+	  
+	  var globalUser=null;
+	  
          function autocomplete(inp, arr) {
            /*the autocomplete function takes two arguments,
            the text field element and an array of possible autocompleted values:*/
@@ -227,6 +256,7 @@
                        /*insert the value for the autocomplete text field:*/
                        inp.value = this.getElementsByTagName("input")[0].value;
          			   // getDataFromServer(inp.value);
+					   globalUser=inp.value;
 					   populateProblem(inp.value);
 					   console.log(inp.value);
                        /*close the list of autocompleted values,
@@ -323,7 +353,9 @@
                    b.addEventListener("click", function(e) {
                        /*insert the value for the autocompleteProblem text field:*/
                        inp.value = this.getElementsByTagName("input")[0].value;
-         			   getDataFromServer(inp.value);
+         			   //getDataFromServer(inp.value);
+					   //globalUser
+					   getDataFromServer(globalUser,inp.value);
 					   console.log(inp.value);
                        /*close the list of autocompleted values,
                        (or any other open lists of autocompleted values:*/
@@ -410,7 +442,8 @@
          	});
 			
 			//getDataFromServer("boobook364");
-         	
+         	//displayData(null);bilby953
+			getDataFromServer("bilby953","Drug Interdiction");
          };
          
 	
@@ -428,23 +461,40 @@ $(function(){
 function populateProblem(user)
 {
 	console.log("user: "+user);
-	autocompleteProblem(document.getElementById("myInputProblem"), questions);
+	 
+	 var dataString = 'user='+user;
+            $.ajax({
+                type:'POST',
+                data:dataString,
+                url:'get_user_problem.php',
+         	   dataType: 'json',
+                success:function(data) {
+         		//console.log(data);
+         		var problems=[];
+		
+				for (var i = 0; i < data.length; i++) {
+					problems[i]=data[i];
+				}
+				autocompleteProblem(document.getElementById("myInputProblem"), problems);
+				
+				}
+         	});
+		
+	//autocompleteProblem(document.getElementById("myInputProblem"), questions);
 	
 }	
 
-function getDataFromServer(user)
+function getDataFromServer(user,problem)
 {
-	   console.log("user: "+user);
+	   console.log("user: "+user+" | problem: "+problem);
 	   
-		
-	
-	   var dataString = 'user='+user;
+	   var dataString = 'user='+user+"&problem="+problem;
 	   
 	   $.ajax({
         type:'POST',
         data:dataString,
 		dataType: 'json',
-        url:'get_user_profile.php',
+        url:'get_profile_details.php',
         success:function(data) {
 			console.log(data);			
 			//console.log("JSON from server: "+data);
@@ -456,65 +506,198 @@ function getDataFromServer(user)
 		 
 function displayData(data)
  {
-	var chart = $('#container').highcharts();
+	var chart = $('#containerTimeline').highcharts();
 	
 	if(chart)
 	{
 		chart.destroy();
 	}
 
-Highcharts.chart('container', {
+	Highcharts.chart('containerComments', {
   chart: {
-    type: 'column'
-  },
-  title: {
-    text: 'User Profile'
-  },
-  subtitle: {
-    text: 'Source: Swarm'
-  },
-  xAxis: {
-    categories: data.problems,
-    crosshair: true
-  },
-  yAxis: {
-    min: 0,
-    title: {
-      text: 'Number of Posts'
+    type: 'pie',
+    options3d: {
+      enabled: true,
+      alpha: 45,
+      beta: 0
+    },
+  events: {
+        load: function(event) {
+            var total = 0; // get total of data
+            for (var i = 0, len = this.series[0].yData.length; i < len; i++) {
+                total += this.series[0].yData[i];
+            }
+            var text = this.renderer.text(
+                'Total: ' + total+' Posts',
+                this.plotLeft,
+                this.plotTop + 10
+            ).attr({
+                zIndex: 5
+            }).add() // write it to the upper left hand corner
+        }
     }
   },
+  title: {
+    text: 'Comments/Description/Hypothesis'
+  },
   tooltip: {
-    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-      '<td style="padding:0"><b> {point.y}</b></td></tr>',
-    footerFormat: '</table>',
-    shared: true,
-    useHTML: true
+    pointFormat: '{series.name}: <b>{point.y:.1f}</b>'
   },
   plotOptions: {
-    column: {
-      pointPadding: 0.2,
-      borderWidth: 0
+    pie: {
+      allowPointSelect: true,
+      cursor: 'pointer',
+      depth: 35,
+      dataLabels: {
+        enabled: true,
+        format: '{point.name}'
+      }
     }
   },
   series: [{
-    name: 'Hyp',
-    data: data.hyp
+    type: 'pie',
+    name: 'Posts Distribution',
+    data: data.posts
+  }],
+  credits: {
+      enabled: false
+  }
+});
 
-  }, {
-    name: 'Comm',
-    data: data.comm
-
-  }, {
-    name: 'Desc',
-    data: data.desc
-
-  },{
-    name: 'Total Posts',
-    data: data.total
-
+	Highcharts.chart('containerPings', {
+  chart: {
+    type: 'pie',
+    options3d: {
+      enabled: true,
+      alpha: 45,
+      beta: 0
+    }
+  },
+  title: {
+    text: 'Sentiments'
+  },
+  tooltip: {
+    pointFormat: '{series.name}: <b>{point.y:.1f}</b>'
+  },
+  plotOptions: {
+    pie: {
+      allowPointSelect: true,
+      cursor: 'pointer',
+      depth: 35,
+      dataLabels: {
+        enabled: true,
+        format: '{point.name}'
+      }
+    }
+  },
+  series: [{
+    type: 'pie',
+    name: 'Browser share',
+    data: data.sentiments
   }]
-});	
+});
+
+	Highcharts.chart('containerSentiments', {
+  chart: {
+    type: 'pie',
+    options3d: {
+      enabled: true,
+      alpha: 45,
+      beta: 0
+    }
+  },
+  title: {
+    text: 'Incoming/Outgoing Pings'
+  },
+  tooltip: {
+    pointFormat: '{series.name}: <b>{point.y:.1f}</b>'
+  },
+  plotOptions: {
+    pie: {
+      allowPointSelect: true,
+      cursor: 'pointer',
+      depth: 35,
+      dataLabels: {
+        enabled: true,
+        format: '{point.name}'
+      }
+    }
+  },
+  series: [{
+    type: 'pie',
+    name: 'Browser share',
+    data: data.pings
+  }]
+});
+
+
+	
+	Highcharts.chart('containerTimeline', {
+
+  title: {
+    text: 'Number of Comments on a Date'
+  },
+
+  subtitle: {
+    text: 'Source: Swarm\'18'
+  },
+
+  yAxis: {
+    title: {
+      text: 'Number of Comments!'
+    }
+  },
+  
+  xAxis: {
+    categories: data.dateRange
+	},
+  
+  legend: {
+    layout: 'vertical',
+    align: 'right',
+    verticalAlign: 'middle'
+  },
+
+  plotOptions: {
+    series: {
+      label: {
+        connectorAllowed: false
+      }
+    }
+  },
+
+  series: [{
+    name: 'Positive Comments',
+    data: data.positiveComments
+  }, {
+    name: 'Negative Comments',
+    data: data.negativeComments
+  },{
+    name: 'Neutral Comments',
+    data: data.neutralComments
+  },{
+    name: 'Total Comments',
+    data: data.totalComments
+  }],
+
+  responsive: {
+    rules: [{
+      condition: {
+        maxWidth: 500
+      },
+      chartOptions: {
+        legend: {
+          layout: 'horizontal',
+          align: 'center',
+          verticalAlign: 'bottom'
+        }
+      }
+    }]
+  }
+
+});
+
+
 
 }
 		

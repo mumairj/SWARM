@@ -251,7 +251,7 @@
 				}
          	});
 			
-			//getDataFromServer("Drug Interdiction");
+			getDataFromServer("Drug Interdiction");
          	
          };
          
