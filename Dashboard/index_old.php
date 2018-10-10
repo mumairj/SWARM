@@ -64,17 +64,12 @@ input[type=submit] {
   background-color: DodgerBlue !important; 
   color: #ffffff; 
 }
-	
-.playerOne {
-float: left;
-}
-.playerTwo {
-float: right;
-}
-	
+		
 </style>
 
 <body class="fix-header fix-sidebar">
+
+	
 	    <div id="main-wrapper">
         <!-- header header  -->
         <div class="header">
@@ -99,55 +94,33 @@ float: right;
             <!-- Container fluid  -->
             <div class="container-fluid">
 			
-               <!-- Start Page Content -->
-               <div class="row">
-				<!--<button onclick="getDataFromServer('Drugs!');">Test</button>-->
-                  <div class="col-md-12">
-                     <div class="playerOne">
-                        <span class="input-group-btn"><button class="btn btn-primary" type="submit"><i class="ti-search"></i></button></span>
-                        <div class="autocomplete">
-                           <input id="myInput" type="text" name="myProblem" placeholder="Search Problem">
-                        </div>
-                     </div>
-                     <div class="playerTwo">
-                        <div class="dropdown">
-                           <button id="dbutton" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Team<span class="caret"></span></button>
-                           <ul id="dmenue" class="dropdown-menu">
-						   <li><a href="#">Select Problem</a></li>
-                           </ul>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-       
-               <hr />
+                <!-- Start Page Content -->
+                <div class="row">
+				<div class="col-md-3">
+				<span class="input-group-btn"><button class="btn btn-primary" type="submit"><i class="ti-search"></i></button></span>
+				  <div class="autocomplete">
+					<input id="myInput" type="text" name="myCountry" placeholder="Search Question">
+				  </div>
+				  </div>
+				<div class="col-md-3">
+				                <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Team
+											<span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">HTML</a></li>
+                                        <li><a href="#">CSS</a></li>
+                                        <li><a href="#">JavaScript</a></li>
+                                    </ul>
+                                </div>
+				</div>	  
+                </div>
+
                 <div class="row bg-white m-l-0 m-r-0 box-shadow ">
 				<!--<button id="update">Test</button>-->
                     <!-- column -->
                     <div class="col-lg-12">
-						<svg id="myGraph" width="800" height="500"></svg>     
-					</div>
-                    <!-- column -->
-
-
-					
-                </div>
- 
-                <!-- End PAge Content -->
-            </div>
-		
-            <!-- End Container fluid  -->
-            <!-- footer -->
-			<?php include 'footer.php';?>
-            <!-- End footer -->
-        </div>
-        <!-- End Page wrapper  -->
-    </div>
-<?php include 'footerScripts.php';?>
-
-	</body>
-</html>
-
+						
+						<svg id="myGraph" width="800" height="500"></svg>
 
 <script src="http://d3js.org/d3.v4.min.js" type="text/javascript"></script>
 <script src="http://d3js.org/d3-selection-multi.v1.js"></script>
@@ -179,21 +152,20 @@ float: right;
 	}
 	
 	
-	function getInteraction(teamName,myQuestion)
+	function getTeamInteraction(myQuestion,myTeam)
 	{
-		console.log(teamName+"===="+myQuestion);
 		//svg.selectAll("*").remove();
-	   var dataString = 'myQuestion='+myQuestion+'&teamName='+teamName;
+	   var dataString = 'test';
 	   $.ajax({
         type:'POST',
         data:dataString,
-        url:'get_team_interaction.php',
+        url:'getdata.php',
         success:function(data) {
 			console.log(data);
 			var obj1 = JSON.stringify(data);
 			var obj2 = JSON.parse(data);	
 			//draw_graph(data);			
-			//console.log(obj2.links);
+			console.log(obj2.links);
 			d3.select('#myGraph').html("");
 			updateOnClick(obj2.links,obj2.nodes);
 			}
@@ -202,9 +174,8 @@ float: right;
 	
 	function updateOnClick(links,nodes)
 	{
-		d3.scaleOrdinal(d3.schemeCategory10);
 		
-		svg = d3.select("svg"),
+		d3.select("svg"),
         width = +svg.attr("width"),
         height = +svg.attr("height"),
         node,
@@ -224,15 +195,10 @@ float: right;
         .attr('fill', '#999')
         .style('stroke','none');
 		
-		simulation = d3.forceSimulation()
-      .force("link", d3.forceLink().id(function (d) {return d.id;}).distance(200).strength(1))
+		d3.forceSimulation()
+        .force("link", d3.forceLink().id(function (d) {return d.id;}).distance(200).strength(1))
         .force("charge", d3.forceManyBody())
-        //.force("center", d3.forceCenter(width/2, height/2))
-		.velocityDecay(0.1)
-		.force("x", d3.forceX(width / 2).strength(.05))
-		.force("y", d3.forceY(height / 2).strength(.05))
-		.force("charge", d3.forceManyBody().strength(-50))
-		;
+        .force("center", d3.forceCenter(width/2, height/2));
 		
 		    link = svg.selectAll(".link")
             .data(links)
@@ -265,13 +231,15 @@ float: right;
             .call(d3.drag()
                     .on("start", dragstarted)
                     .on("drag", dragged)
-                    .on("end", dragended)
+                    //.on("end", dragended)
             );
 
         node.append("circle")
             .attr("r", function(d){ 
 			var weight;
-			return d.weight*3;
+	
+			
+			return 5;
 			})
             .style("fill", function (d, i) {return colors(i);})
 
@@ -316,14 +284,9 @@ float: right;
         .style('stroke','none');
 
     var simulation = d3.forceSimulation()
-		.force("link", d3.forceLink().id(function (d) {return d.id;}).distance(200).strength(1))
+        .force("link", d3.forceLink().id(function (d) {return d.id;}).distance(200).strength(1))
         .force("charge", d3.forceManyBody())
-        //.force("center", d3.forceCenter(width/2, height/2))
-		.velocityDecay(0.1)
-		.force("x", d3.forceX(width / 2).strength(.05))
-		.force("y", d3.forceY(height / 2).strength(.05))
-		.force("charge", d3.forceManyBody().strength(-50))
-		;
+        .force("center", d3.forceCenter(width/2, height/2));
 
 
     function update(links, nodes) {
@@ -358,13 +321,15 @@ float: right;
             .call(d3.drag()
                     .on("start", dragstarted)
                     .on("drag", dragged)
-                    .on("end", dragended)
+                    //.on("end", dragended)
             );
 
         node.append("circle")
             .attr("r", function(d){ 
 			var weight;
-			return d.weight*3;
+	
+			
+			return d.weight;
 			})
             .style("fill", function (d, i) {return colors(i);})
 
@@ -411,14 +376,30 @@ float: right;
         d.fx = d3.event.x;
         d.fy = d3.event.y;
     }
-	
-	function dragended(d) {
-		if (!d3.event.active) simulation.alphaTarget(0);
-		d.fx = undefined;
-		d.fy = undefined;
-	}
+
+				</script>
+                    </div>
+                    <!-- column -->
 
 
+					
+                </div>
+ 
+                <!-- End PAge Content -->
+            </div>
+		
+            <!-- End Container fluid  -->
+            <!-- footer -->
+			<?php include 'footer.php';?>
+            <!-- End footer -->
+        </div>
+        <!-- End Page wrapper  -->
+    </div>
+<?php include 'footerScripts.php';?>
+
+	</body>
+</html>
+<script>
 $("#update").click(function(e) {
 	testButton();
 });
@@ -456,26 +437,6 @@ function autocomplete(inp, arr) {
           b.addEventListener("click", function(e) {
               /*insert the value for the autocomplete text field:*/
               inp.value = this.getElementsByTagName("input")[0].value;
-			  
-		    var problem = inp.value;
-			var dataString = 'problem='+problem;
-			
-			   $.ajax({
-				type:'POST',
-				data:dataString,
-				url:'get_tags.php',
-				success:function(data) {
-					console.log(data);
-					var obj1 = JSON.stringify(data);
-					var obj2 = JSON.parse(data);			
-					//console.log(obj2.links);
-							d3.select('#myGraph').html("");
-			updateOnClick(obj2.links,obj2.nodes);
-					}
-				});
-			  
-			  populateTeams(inp.value);
-			  console.log(inp.value);
               /*close the list of autocompleted values,
               (or any other open lists of autocompleted values:*/
               closeAllLists();
@@ -535,13 +496,17 @@ function autocomplete(inp, arr) {
       }
     }
   }
-  
+  /*execute a function when someone clicks in the document:*/
+  document.addEventListener("click", function (e) {
+	  myQuestion=e.target.textContent;
+	  //console.log(e.target.textContent);
+	  populateTeams(myQuestion);
+      closeAllLists(e.target);
+      });
 }
-
 
 function populateTeams(myQuestion)
 {
-	
 	console.log("Check-1");
 	var last_name = 'N/A';
 	var dataString = 'myQuestion='+myQuestion+'&last_name='+last_name;
@@ -553,14 +518,9 @@ function populateTeams(myQuestion)
 	   dataType: 'json',
        success:function(data) {
 		$('.dropdown-menu').empty();
-		dataLength=data.length;
-		console.log(data.length);
 		for (var i = 0; i < data.length; i++) {
-			//var splitData = data[i].split(",");
-			//console.log("====>"+data[i][1]);
-			var teamName=data[i][1].trim();
-			var teamID=data[i][0].trim();
-			$('.dropdown-menu').append('<li><a  href="javascript:getInteraction(\''+teamName+'\',\''+myQuestion+'\');" ><span class="tab">'+teamName+'</span></a></li>');
+			console.log("====>"+data[i]);
+			$('.dropdown-menu').append('<li><a href="#" onclick="deactive_tiptip();"><span class="tab">'+data[i]+'</span></a></li>');
         }
 		
 		}
@@ -581,7 +541,7 @@ window.onload = function() {
 		for (var i = 0; i < data.length; i++) {
             questions[i]=data[i];
         }
-		console.log(questions);
+		//console.log(questions);
 		autocomplete(document.getElementById("myInput"), questions);
 		//var questions=[data];
 		//questions = data;
@@ -589,15 +549,13 @@ window.onload = function() {
 		}
 	});
 	
-	var problem = 'Drug Interdiction';
-	var dataString = 'problem='+problem;
-	
+		   var dataString = 'test';
 	   $.ajax({
         type:'POST',
         data:dataString,
         url:'get_tags.php',
         success:function(data) {
-			console.log(data);
+			//console.log(data);
 			var obj1 = JSON.stringify(data);
 			var obj2 = JSON.parse(data);			
 			//console.log(obj2.links);

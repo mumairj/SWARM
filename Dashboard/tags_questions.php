@@ -75,8 +75,6 @@ float: right;
 </style>
 
 <body class="fix-header fix-sidebar">
-
-	
 	    <div id="main-wrapper">
         <!-- header header  -->
         <div class="header">
@@ -273,7 +271,7 @@ float: right;
         node.append("circle")
             .attr("r", function(d){ 
 			var weight;
-			return d.weight;
+			return d.weight*3;
 			})
             .style("fill", function (d, i) {return colors(i);})
 
@@ -458,6 +456,24 @@ function autocomplete(inp, arr) {
           b.addEventListener("click", function(e) {
               /*insert the value for the autocomplete text field:*/
               inp.value = this.getElementsByTagName("input")[0].value;
+			  
+		    var problem = inp.value;
+			var dataString = 'problem='+problem;
+			
+			   $.ajax({
+				type:'POST',
+				data:dataString,
+				url:'get_tags.php',
+				success:function(data) {
+					console.log(data);
+					var obj1 = JSON.stringify(data);
+					var obj2 = JSON.parse(data);			
+					//console.log(obj2.links);
+							d3.select('#myGraph').html("");
+			updateOnClick(obj2.links,obj2.nodes);
+					}
+				});
+			  
 			  populateTeams(inp.value);
 			  console.log(inp.value);
               /*close the list of autocompleted values,
@@ -573,7 +589,9 @@ window.onload = function() {
 		}
 	});
 	
-	var dataString = 'test';
+	var problem = 'Drug Interdiction';
+	var dataString = 'problem='+problem;
+	
 	   $.ajax({
         type:'POST',
         data:dataString,

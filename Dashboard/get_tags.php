@@ -15,13 +15,15 @@ else
     //echo "Opened database successfully\n";
 }
 
+$myQuestion = $_POST['problem'];
+
 $sql = <<<EOF
    select 
 	   src,
 	   trgt,
 	   src_trgt_tagged_ct 
    from view_tags
-		where title='Drug Interdiction'
+		where title='$myQuestion'
 EOF;
 
 $ret = pg_query($db, $sql);
@@ -49,14 +51,14 @@ $sqlUsers = <<<EOF
 	   trgt,
 	   sum(src_trgt_tagged_ct) as ct
    from view_tags
-		where title='Drug Interdiction'
+		where title='$myQuestion'
     group by trgt
 
     union
 
   select distinct src,1 from view_tags
-      where title='Drug Interdiction' and
-      src not in (select distinct trgt from view_tags where title='Drug Interdiction');
+      where title='$myQuestion' and
+      src not in (select distinct trgt from view_tags where title='$myQuestion');
 	
 EOF;
 

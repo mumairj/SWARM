@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
    <?php include 'header.php';?>
-   
-    <link href="css/lib/toastr/toastr.min.css" rel="stylesheet">
-   
    <style type="text/css">
       * {
       box-sizing: border-box;
@@ -108,12 +105,12 @@
                      <div class="playerOne">
                         <span class="input-group-btn"><button class="btn btn-primary" type="submit"><i class="ti-search"></i></button></span>
                         <div class="autocomplete">
-                           <input id="myInput" type="text" name="myProblem" placeholder="Search Problem">
+                           <input id="myInput" type="text" name="myProblem" placeholder="Search User">
                         </div>
                      </div>
                   </div>
                </div>
-        <button style="display: none;" type="button" class="btn btn-success m-b-10 m-l-5" id="toastr-success-top-right">Success</button>
+       
                <hr />
                <div class="row bg-white m-l-0 m-r-0 box-shadow ">
                   <!--<button id="update">Test</button>-->
@@ -136,13 +133,6 @@
       <script src="code/highcharts.js"></script>
       <script src="code/map.js"></script>
       <script src="https://code.highcharts.com/modules/data.js"></script>
-	     <!--stickey kit -->
-    <script src="js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
-
-    <script src="js/lib/toastr/toastr.min.js"></script>
-    <!-- scripit init-->
-    <script src="js/lib/toastr/toastr.init.js"></script>
-	
       <script>
          function autocomplete(inp, arr) {
            /*the autocomplete function takes two arguments,
@@ -248,7 +238,7 @@
             $.ajax({
                 type:'POST',
                 data:dataString,
-                url:'get_questions.php',
+                url:'get_users.php',
          	   dataType: 'json',
                 success:function(data) {
          		//console.log(data);
@@ -261,7 +251,7 @@
 				}
          	});
 			
-			getDataFromServer("Drug Interdiction");
+			getDataFromServer("currawong296");
          	
          };
          
@@ -276,19 +266,19 @@ $(function(){
 
 });
 		 
-function getDataFromServer(problem)
+function getDataFromServer(user)
 {
-	   console.log("problem: "+problem);
+	   console.log("user: "+user);
 	   
 		
 	
-	   var dataString = 'problem='+problem;
+	   var dataString = 'user='+user;
 	   
 	   $.ajax({
         type:'POST',
         data:dataString,
 		dataType: 'json',
-        url:'get_problem_profile.php',
+        url:'get_user_profile.php',
         success:function(data) {
 			console.log(data);			
 			//console.log("JSON from server: "+data);
@@ -297,18 +287,6 @@ function getDataFromServer(problem)
 		});
 
 }	
-
-var testObject = null;
-
-function copyToClipboard(text) {
-    //window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
-	  var $temp = $("<input>");
-	  $("body").append($temp);
-	  $temp.val(""+text+"").select();
-	  document.execCommand("copy");
-	  $temp.remove();
-	  $( "#toastr-success-top-right" ).trigger( "click" );
-  }
 		 
 function displayData(data)
  {
@@ -324,20 +302,19 @@ Highcharts.chart('container', {
     type: 'column'
   },
   title: {
-    text: 'Problem Profile'
+    text: 'User Profile'
   },
   subtitle: {
     text: 'Source: Swarm'
   },
   xAxis: {
-    categories: data.teams,
+    categories: data.problems,
     crosshair: true
   },
   yAxis: {
     min: 0,
-	max:100,
     title: {
-      text: 'Rating'
+      text: 'Number of Posts'
     }
   },
   tooltip: {
@@ -351,23 +328,24 @@ Highcharts.chart('container', {
   plotOptions: {
     column: {
       pointPadding: 0.2,
-      borderWidth: 0,
-	  events: {
-		click: function () {
-			//testObject=this;
-			copyToClipboard(event.point.category);
-			console.log('Category: ' + event.point.category);
-		}
-	 }
+      borderWidth: 0
     }
   },
   series: [{
-    name: 'Team Rating',
-    data: data.teamrating
+    name: 'Hyp',
+    data: data.hyp
 
   }, {
-    name: 'OP Rating',
-    data: data.onplatform
+    name: 'Comm',
+    data: data.comm
+
+  }, {
+    name: 'Desc',
+    data: data.desc
+
+  },{
+    name: 'Total Posts',
+    data: data.total
 
   }]
 });	

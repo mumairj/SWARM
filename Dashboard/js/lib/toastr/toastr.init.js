@@ -5,7 +5,7 @@
 //...................................................
 
 $('#toastr-success-top-right').on("click", function() {
-    toastr.success('This Is Success Message','Top Right',{
+    toastr.success('Success!','Text Copied',{
         timeOut: 5000,
         "closeButton": true,
         "debug": false,

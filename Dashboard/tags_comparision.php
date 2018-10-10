@@ -71,6 +71,11 @@ float: left;
 .playerTwo {
 float: right;
 }
+
+.vhr{
+  border-right: 1px solid #333;
+  height:100%;
+}
 	
 </style>
 
@@ -102,8 +107,10 @@ float: right;
                <!-- Start Page Content -->
                <div class="row">
 				<!--<button onclick="getDataFromServer('Drugs!');">Test</button>-->
-                  <div class="col-md-12">
-                     <div class="playerOne">
+                  <div class="col-md-6">
+					
+					<!--
+									<div class="playerOne">
                         <span class="input-group-btn"><button class="btn btn-primary" type="submit"><i class="ti-search"></i></button></span>
                         <div class="autocomplete">
                            <input id="myInput" type="text" name="myProblem" placeholder="Search Problem">
@@ -117,22 +124,47 @@ float: right;
                            </ul>
                         </div>
                      </div>
+					-->
+					
                   </div>
                </div>
        
                <hr />
-                <div class="row bg-white m-l-0 m-r-0 box-shadow ">
-				<!--<button id="update">Test</button>-->
-                    <!-- column -->
+                
+				
+				
+				<div class="row">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-title">
+                                <h4>Team A</h4>
+                            </div>
+						<iframe frameborder="0" scrolling="no" width="100%" height="512" src="http://115.146.92.239/swarm/tags_questions_A.php" > </iframe>   
+                
+                        </div>
+                        <!-- /# card -->
+                    </div>
+                    <!-- /# column -->
+
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-title">
+                                <h4>Team B</h4>
+                            </div>
+                    <iframe frameborder="0" scrolling="no" width="100%" height="512" src="http://115.146.92.239/swarm/tags_questions_A.php" > </iframe>  
+                        </div>
+                        <!-- /# card -->
+                    </div>
+                    <!-- /# column -->
+                </div>
+				
+				<!--
+				<div class="row bg-white m-l-0 m-r-0 box-shadow ">
                     <div class="col-lg-12">
 						<svg id="myGraph" width="800" height="500"></svg>     
 					</div>
-                    <!-- column -->
-
-
-					
                 </div>
- 
+				-->
                 <!-- End PAge Content -->
             </div>
 		

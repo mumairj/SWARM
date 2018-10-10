@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
    <?php include 'header.php';?>
-   
-    <link href="css/lib/toastr/toastr.min.css" rel="stylesheet">
-   
+   <link href="css/lib/toastr/toastr.min.css" rel="stylesheet">
    <style type="text/css">
       * {
       box-sizing: border-box;
@@ -94,7 +92,7 @@
                </div>
                <div class="col-md-7 align-self-center">
                   <ol class="breadcrumb">
-                     <li class="breadcrumb-item active">User Profile</li>
+                     <li class="breadcrumb-item active">Comparision</li>
                   </ol>
                </div>
             </div>
@@ -106,14 +104,14 @@
 				<!--<button onclick="getDataFromServer('Drugs!');">Test</button>-->
                   <div class="col-md-12">
                      <div class="playerOne">
-                        <span class="input-group-btn"><button class="btn btn-primary" type="submit"><i class="ti-search"></i></button></span>
+                        <span class="input-group-btn"><button onclick="copyToClipboardProblem();" class="btn btn-primary" type="submit"><i class="ti-search"></i></button></span>
                         <div class="autocomplete">
                            <input id="myInput" type="text" name="myProblem" placeholder="Search Problem">
                         </div>
                      </div>
                   </div>
                </div>
-        <button style="display: none;" type="button" class="btn btn-success m-b-10 m-l-5" id="toastr-success-top-right">Success</button>
+       
                <hr />
                <div class="row bg-white m-l-0 m-r-0 box-shadow ">
                   <!--<button id="update">Test</button>-->
@@ -123,7 +121,72 @@
                   </div>
                   <!-- column -->
                </div>
-               <!-- End PAge Content -->
+               
+			                  <hr />
+                
+				
+				
+				<div class="row">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-title">
+                                <h4>Team Interaction A</h4>
+                            </div>
+						<iframe frameborder="0" scrolling="yes" width="100%" height="512" src="http://115.146.92.239/swarm/tags_questions_A.php" > </iframe>   
+                
+                        </div>
+                        <!-- /# card -->
+                    </div>
+                    <!-- /# column -->
+
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-title">
+                                <h4>Team Interaction B</h4>
+                            </div>
+                    <iframe frameborder="0" scrolling="yes" width="100%" height="512" src="http://115.146.92.239/swarm/tags_questions_A.php" > </iframe>  
+                        </div>
+                        <!-- /# card -->
+                    </div>
+                    <!-- /# column -->
+                </div>
+			   
+			   
+			  <hr />
+			  
+			  
+              
+			  
+				<div class="row">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-title">
+                                <h4>User Profile A</h4>
+                            </div>
+						<iframe frameborder="0" scrolling="yes" width="100%" height="512" src="http://115.146.92.239/swarm/compare_user_profile_details.php" > </iframe>   
+                
+                        </div>
+                        <!-- /# card -->
+                    </div>
+                    <!-- /# column -->
+
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-title">
+                                <h4>User Profile B</h4>
+                            </div>
+                    <iframe frameborder="0" scrolling="yes" width="100%" height="512" src="http://115.146.92.239/swarm/compare_user_profile_details.php" > </iframe>  
+                        </div>
+                        <!-- /# card -->
+                    </div>
+                    <!-- /# column -->
+                </div>
+			   
+			   
+			   <!-- End PAge Content -->
+			   
+			   <button style="display: none;" type="button" class="btn btn-success m-b-10 m-l-5" id="toastr-success-top-right">Success</button>
+			   
             </div>
             <!-- End Container fluid  -->
             <!-- footer -->
@@ -136,13 +199,11 @@
       <script src="code/highcharts.js"></script>
       <script src="code/map.js"></script>
       <script src="https://code.highcharts.com/modules/data.js"></script>
-	     <!--stickey kit -->
-    <script src="js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
+	     <script src="js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
 
     <script src="js/lib/toastr/toastr.min.js"></script>
     <!-- scripit init-->
     <script src="js/lib/toastr/toastr.init.js"></script>
-	
       <script>
          function autocomplete(inp, arr) {
            /*the autocomplete function takes two arguments,
@@ -297,18 +358,6 @@ function getDataFromServer(problem)
 		});
 
 }	
-
-var testObject = null;
-
-function copyToClipboard(text) {
-    //window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
-	  var $temp = $("<input>");
-	  $("body").append($temp);
-	  $temp.val(""+text+"").select();
-	  document.execCommand("copy");
-	  $temp.remove();
-	  $( "#toastr-success-top-right" ).trigger( "click" );
-  }
 		 
 function displayData(data)
  {
@@ -375,7 +424,25 @@ Highcharts.chart('container', {
 }
 		
 		
-		
+		function copyToClipboard(text) {
+    //window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
+	  var $temp = $("<input>");
+	  $("body").append($temp);
+	  $temp.val(""+text+"").select();
+	  document.execCommand("copy");
+	  $temp.remove();
+	  $( "#toastr-success-top-right" ).trigger( "click" );
+  }
+  
+  function copyToClipboardProblem() {
+    //window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
+	  var $temp = $("<input>");
+	  $("body").append($temp);
+	  $temp.val($("#myInput").val()).select();
+	  document.execCommand("copy");
+	  $temp.remove();
+	  $( "#toastr-success-top-right" ).trigger( "click" );
+  }
 		 
          
       </script>

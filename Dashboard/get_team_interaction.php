@@ -38,16 +38,23 @@ if (!$ret) {
 }
 
 $myJSONlinks = '"links": [';
-
+$i=0;
 while ($row = pg_fetch_row($ret)) {
     $myJSONlinks = $myJSONlinks . '{"source":"' . $row[0] . '",';
     $myJSONlinks = $myJSONlinks . '"target":"' . $row[1] . '",';
     $myJSONlinks = $myJSONlinks . '"tags":"' . $row[2] . '"},';
+	$i=$i+1;
 }
 
-$myJSONlinks = substr($myJSONlinks, 0, -1);
-$myJSONlinks = $myJSONlinks . "]";
-
+if($i==0)
+{
+	$myJSONlinks = $myJSONlinks . "]";
+}
+else
+{
+	$myJSONlinks = substr($myJSONlinks, 0, -1);
+	$myJSONlinks = $myJSONlinks . "]";
+}
 //echo "-------->" . $myJSONlinks . "<---------";
 
 $sqlUsers = <<<EOF
