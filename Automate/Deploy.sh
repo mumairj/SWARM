@@ -31,3 +31,19 @@ unzip swarm.zip
 cd /home/ubuntu
 sudo apt-get install php5-pgsql
 #add extension=php_pgsql.dll in php.ini (/etc/php5/apache2/)
+sudo chmod 777 /etc/php5/apache2/php.ini
+sudo /etc/init.d/apache2 restart
+sudo chmod 777 /etc/postgresql/10/main/pg_hba.conf
+sudo chmod 777 /etc/postgresql/10/main/postgresql.conf
+sudo sed -i '/host    all/d' /etc/postgresql/10/main/pg_hba.conf
+echo 'host all all 0.0.0.0/0 trust' >> /etc/postgresql/10/main/pg_hba.conf
+echo "listen_addresses = '*'" >> /etc/postgresql/10/main/postgresql.conf
+sudo service postgresql restart
+#Run python scripts now
+cd /home/ubuntu/
+sudo apt-get install python-pip -y
+sudo apt-get install python-psycopg2
+sudo apt-get install libpq-dev
+sudo pip install -U textblob
+sudo python Sentiments.py
+sudo python IdentifyTagsMorphed.py
