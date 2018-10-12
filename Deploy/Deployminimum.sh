@@ -16,12 +16,12 @@ sudo chown ubuntu /etc/php/7.2/apache2/php.ini
 echo 'extension=php_pgsql.dll' >> /etc/php/7.2/apache2/php.ini
 sudo /etc/init.d/apache2 restart
 sudo chown ubuntu /var/www/html/
-sudo cp /home/ubuntu/swarm/Deploy/swarm.zip /var/www/html
-sudo cp /home/ubuntu/swarm/Deploy/get_users.php /var/www/html
+sudo cp /home/ubuntu/SWARM/Deploy/swarm.zip /var/www/html
+sudo cp /home/ubuntu/SWARM/Deploy/get_users.php /var/www/html
 sudo chown ubuntu /var/www/html/get_users.php
 cd /var/www/html
 unzip swarm.zip
-cd /home/ubuntu/swarm/Deploy/
+cd /home/ubuntu/SWARM/Deploy/
 sudo chmod 777 /etc/postgresql/10/main/pg_hba.conf
 sudo chmod 777 /etc/postgresql/10/main/postgresql.conf
 echo 'host all all 0.0.0.0/0 trust' >> /etc/postgresql/10/main/pg_hba.conf
