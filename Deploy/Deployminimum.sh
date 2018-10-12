@@ -4,9 +4,9 @@ sudo apt-get upgrade -y
 sudo apt-get install unzip
 sudo apt-get install zip
 sudo apt-get install postgresql postgresql-contrib -y
-curl -o swarm_dump.gz http://115.146.93.42/swarm_dump.gz
-gunzip swarm_dump.gz
-sudo -u postgres psql -a -f prod_postgres_dump_07-09-2018_10_00_01.sql
+curl -o swarm_dump.sql.gz http://115.146.93.42/swarm_dump.sql.gz
+gunzip swarm_dump.sql.gz
+sudo -u postgres psql -a -f swarm_dump.sql
 sudo -u postgres psql -d swarm -a -f swarm_custom_tables.sql
 sudo apt install apache2 -y
 sudo ufw allow in "Apache Full"
