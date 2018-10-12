@@ -1,3 +1,6 @@
+drop view if exists view_published_hyp;
+drop view if exists view_comments_sentiments_problemwise;
+drop view if exists view_comments_sentiments;
 drop view if exists view_tags;
 drop view if exists view_comments;
 drop view if exists view_prob_hyp_comm_desc_team;
@@ -213,5 +216,73 @@ alter table view_comments
   GROUP BY p.id, p.title, p.team, t.user_display_name, t.tagged_user_display_name;
 
 alter table view_tags
+  owner to postgres;
+
+
+drop view if exists view_comments_sentiments;
+create view view_comments_sentiments as
+  SELECT z.comment_due_date,
+         y.problem_title,
+         y.team,
+         y.sentiment,
+         y.count                                          AS sentiment_count,
+         z.sum                                            AS total_comments,
+         round((((y.count * 100)) :: numeric / z.sum), 2) AS percentage
+  FROM ((SELECT view_comments.problem_title,
+                view_comments.team,
+                view_comments.sentiment,
+                (view_comments.comment_due_date) :: date AS comment_due_date,
+                count(*)                                 AS count
+         FROM view_comments
+         GROUP BY view_comments.problem_title, view_comments.team, view_comments.sentiment,
+                  ((view_comments.comment_due_date) :: date)
+         ORDER BY view_comments.problem_title, view_comments.team, ((view_comments.comment_due_date) :: date)) y
+      LEFT JOIN (SELECT x.problem_title, x.team, x.comment_due_date, sum(x.count) AS sum
+                 FROM (SELECT view_comments.problem_title,
+                              view_comments.team,
+                              view_comments.sentiment,
+                              (view_comments.comment_due_date) :: date AS comment_due_date,
+                              count(*)                                 AS count
+                       FROM view_comments
+                       GROUP BY view_comments.problem_title, view_comments.team, view_comments.sentiment,
+                                ((view_comments.comment_due_date) :: date)
+                       ORDER BY view_comments.problem_title, view_comments.team,
+                                ((view_comments.comment_due_date) :: date)) x
+                 GROUP BY x.problem_title, x.team, x.comment_due_date
+                 ORDER BY x.problem_title, x.team, x.comment_due_date) z ON ((
+    ((y.problem_title) :: text = (z.problem_title) :: text) AND ((y.team) :: text = (z.team) :: text) AND
+    (y.comment_due_date = z.comment_due_date))))
+  WHERE (y.comment_due_date IS NOT NULL);
+
+alter table view_comments_sentiments
+  owner to postgres;
+
+drop view if exists view_comments_sentiments_problemwise;
+ create view view_comments_sentiments_problemwise as
+  SELECT view_comments_sentiments.comment_due_date,
+         view_comments_sentiments.problem_title,
+         view_comments_sentiments.sentiment,
+         sum(view_comments_sentiments.sentiment_count)      AS sentiment_count,
+         sum(view_comments_sentiments.total_comments)       AS total_comments,
+         round(avg(view_comments_sentiments.percentage), 2) AS round
+  FROM view_comments_sentiments
+  GROUP BY view_comments_sentiments.comment_due_date, view_comments_sentiments.problem_title,
+           view_comments_sentiments.sentiment;
+
+alter table view_comments_sentiments_problemwise
+  owner to postgres;
+
+
+CREATE EXTENSION if not exists dblink;
+ drop view if exists view_published_hyp;
+create view view_published_hyp as
+  SELECT tb2.published_hypothesis_id
+  FROM dblink('dbname=eventservice' :: text, '
+ select payload->>''chunkId'' as published_hypothesis_id
+ from event
+ where event_type = ''submit_hypothesis''
+' :: text) tb2 (published_hypothesis_id uuid);
+
+alter table view_published_hyp
   owner to postgres;
 
