@@ -29,8 +29,9 @@ try:
         #print(query)
         taggedRows = cur2.fetchall()
         for tagRow in taggedRows:
-            print(row['display_name']+" tagged "+tagRow['display_name'])
-            #ignore selfTags
+            #print(row['display_name']+" tagged "+tagRow['display_name'])
+            print(i)
+			#ignore selfTags
             if(row['display_name']==tagRow['display_name']):
                 continue;
             curInsert.execute("insert into swarm_user_tag_chunk(chunk_uuid,user_display_name,tagged_user_display_name) "

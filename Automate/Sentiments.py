@@ -36,7 +36,8 @@ try:
     for row in rows:
         #print(row['cleaned_content'])
         sentiment = checkSentiment(row['cleaned_content'])
-        print(i,'->',sentiment)
+        print(i)
+		i=i+1
         curInsert.execute("insert into chunk_sentiment(chunk_id,sentiment) values('"+row['id']+"','"+sentiment+"')")
         conn.commit()
 except Exception as e:
