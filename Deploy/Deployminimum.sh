@@ -17,7 +17,7 @@ sudo chown ubuntu /etc/php/7.2/apache2/php.ini
 echo 'extension=php_pgsql.dll' >> /etc/php/7.2/apache2/php.ini
 sudo /etc/init.d/apache2 restart
 sudo chown ubuntu /var/www/html/
-sudo cp /home/ubuntu/SWARM/swarm /var/www/html
+sudo cp -r /home/ubuntu/SWARM/swarm /var/www/html
 sudo cp /home/ubuntu/SWARM/Deploy/get_users.php /var/www/html
 sudo chown ubuntu /var/www/html/get_users.php
 sudo chmod 777 /etc/postgresql/10/main/pg_hba.conf
