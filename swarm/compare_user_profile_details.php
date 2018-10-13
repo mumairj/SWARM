@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
    <?php include 'header.php';?>
+  <link href="css/lib/toastr/toastr.min.css" rel="stylesheet">
    <style type="text/css">
       * {
       box-sizing: border-box;
@@ -208,6 +209,7 @@
         
                </div>
 			   
+			   <button style="display: none;" type="button" class="btn btn-success m-b-10 m-l-5" id="toastr-success-top-right">Success</button>
 			   
                <!-- End PAge Content -->
             </div>
@@ -221,9 +223,13 @@
       <script src="code/highcharts.js"></script>
       <script src="code/highcharts-3d.js"></script>
       <script src="https://code.highcharts.com/modules/data.js"></script>
+	  <script src="js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
+   	  <script src="js/lib/toastr/toastr.min.js"></script>
+	  <script src="js/lib/toastr/toastr.init.js"></script>
       <script>
 	  
 	  var globalUser=null;
+	  var globalProblem=null;
 	  
          function autocomplete(inp, arr) {
            /*the autocomplete function takes two arguments,
@@ -260,7 +266,8 @@
          			   // getDataFromServer(inp.value);
 					   globalUser=inp.value;
 					   getDataFromServerUserPosts(inp.value);
-					   populateProblem(inp.value);	   
+					   populateProblem(inp.value);
+					   getDataFromServer(inp.value,globalProblem);
 					   console.log(inp.value);
                        /*close the list of autocompleted values,
                        (or any other open lists of autocompleted values:*/
@@ -422,9 +429,10 @@
            
          }
          
-         
-         window.onload = function() {
-         $('.col-lg-12').width();
+		 
+function populateAllUsers()
+{
+	         $('.col-lg-12').width();
          	console.log("Initiating...");
             var dataString = 'test';
             $.ajax({
@@ -443,11 +451,29 @@
 				
 				}
          	});
+}
+         
+         window.onload = function() {
+			 
+			var getProblemFromParent = getParamValue("problem");
+			var decodedProblem = decodeURI(getProblemFromParent);
+			globalProblem = decodedProblem;
+			console.log("Problem: "+decodedProblem);
 			
-			//getDataFromServer("boobook364");
-         	//displayData(null);bilby953
+			if(decodedProblem=="null")
+			{
+				//Do nothing
+			}
+			else
+			{
+			//TODO- Get user with highest incoming pings!
+			globalUser = "bilby953";
 			getDataFromServerUserPosts("bilby953");
-			getDataFromServer("bilby953","Drug Interdiction");
+			getDataFromServer("bilby953",globalProblem);	
+			}
+			
+			populateAllUsers();
+			
          };
          
 	
@@ -461,6 +487,18 @@ $(function(){
 
 });
 		 
+
+function getParamValue(paramName)
+{
+    var url = window.location.search.substring(1); //get rid of "?" in querystring
+    var qArray = url.split('&'); //get key-value pairs
+    for (var i = 0; i < qArray.length; i++) 
+    {
+        var pArr = qArray[i].split('='); //split key and value
+        if (pArr[0] == paramName) 
+            return pArr[1]; //return value
+    }
+}		 
 
 function populateProblem(user)
 {
@@ -500,7 +538,7 @@ function getDataFromServer(user,problem)
 		dataType: 'json',
         url:'get_profile_details.php',
         success:function(data) {
-			console.log(data);			
+			//console.log(data);			
 			//console.log("JSON from server: "+data);
 			displayData(data);
 			}
@@ -720,7 +758,7 @@ function getDataFromServerUserPosts(user)
 		dataType: 'json',
         url:'get_user_profile.php',
         success:function(data) {
-			console.log(data);			
+			//console.log(data);			
 			//console.log("JSON from server: "+data);
 			displayDataUserPosts(data);
 			}
@@ -768,7 +806,20 @@ Highcharts.chart('containerUserPosts', {
   plotOptions: {
     column: {
       pointPadding: 0.2,
-      borderWidth: 0
+      borderWidth: 0,
+	  events: {
+		click: function () {
+			var prbTeam = event.point.category;
+			var prb = prbTeam.split(':')[0];
+			prb = prb.trim();
+			 console.log('Category: ' + prb); 
+			 getDataFromServer(globalUser,prb);
+			 $( "#toastr-success-top-right" ).trigger( "click" );
+			 //alert("Test!");
+			 //getDataFromServer(globalUser,event.point.category);
+			
+		}
+	 }
     }
   },
   series: [{

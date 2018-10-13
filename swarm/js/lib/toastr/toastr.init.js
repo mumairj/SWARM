@@ -5,8 +5,8 @@
 //...................................................
 
 $('#toastr-success-top-right').on("click", function() {
-    toastr.success('Success!','Text Copied',{
-        timeOut: 5000,
+    toastr.success('Success!','Selection',{
+        timeOut: 2000,
         "closeButton": true,
         "debug": false,
         "newestOnTop": true,
@@ -21,7 +21,8 @@ $('#toastr-success-top-right').on("click", function() {
         "hideEasing": "linear",
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut",
-        "tapToDismiss": false
+        "tapToDismiss": false,
+		"width":"50px"
 
     })
 });

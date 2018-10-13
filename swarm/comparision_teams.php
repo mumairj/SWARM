@@ -132,7 +132,7 @@
                             <div class="card-title">
                                 <h4>Team Interaction A</h4>
                             </div>
-						<iframe frameborder="0" scrolling="yes" width="100%" height="512" src="http://115.146.92.239/swarm/tags_questions_A.php" > </iframe>   
+						<iframe id="TeamA" frameborder="0" scrolling="yes" width="100%" height="512" src="http://115.146.92.239/swarm/tags_questions_A.php?problem=null&team=null" > </iframe>   
                 
                         </div>
                         <!-- /# card -->
@@ -144,7 +144,7 @@
                             <div class="card-title">
                                 <h4>Team Interaction B</h4>
                             </div>
-                    <iframe frameborder="0" scrolling="yes" width="100%" height="512" src="http://115.146.92.239/swarm/tags_questions_A.php" > </iframe>  
+                    <iframe id="TeamB" frameborder="0" scrolling="yes" width="100%" height="512" src="http://115.146.92.239/swarm/tags_questions_A.php?problem=null&team=null" > </iframe>  
                         </div>
                         <!-- /# card -->
                     </div>
@@ -163,7 +163,7 @@
                             <div class="card-title">
                                 <h4>User Profile A</h4>
                             </div>
-						<iframe frameborder="0" scrolling="yes" width="100%" height="512" src="http://115.146.92.239/swarm/compare_user_profile_details.php" > </iframe>   
+						<iframe id="UserA" frameborder="0" scrolling="yes" width="100%" height="512" src="http://115.146.92.239/swarm/compare_user_profile_details.php" > </iframe>   
                 
                         </div>
                         <!-- /# card -->
@@ -175,7 +175,7 @@
                             <div class="card-title">
                                 <h4>User Profile B</h4>
                             </div>
-                    <iframe frameborder="0" scrolling="yes" width="100%" height="512" src="http://115.146.92.239/swarm/compare_user_profile_details.php" > </iframe>  
+                    <iframe id="UserB" frameborder="0" scrolling="yes" width="100%" height="512" src="http://115.146.92.239/swarm/compare_user_profile_details.php" > </iframe>  
                         </div>
                         <!-- /# card -->
                     </div>
@@ -205,6 +205,11 @@
     <!-- scripit init-->
     <script src="js/lib/toastr/toastr.init.js"></script>
       <script>
+	  
+	  var globalProblemParent = null;
+	  var trackTeam = 1;
+	  
+	  
          function autocomplete(inp, arr) {
            /*the autocomplete function takes two arguments,
            the text field element and an array of possible autocompleted values:*/
@@ -238,6 +243,18 @@
                        /*insert the value for the autocomplete text field:*/
                        inp.value = this.getElementsByTagName("input")[0].value;
          			   getDataFromServer(inp.value);
+					   var problemName = $("#myInput").val();
+					   globalProblemParent = $("#myInput").val();
+					   var uri = baseUrl+"/tags_questions_A.php?problem="+problemName+"&team=null";
+					   var res = encodeURI(uri);
+					   $('#TeamA').attr('src', uri); 
+					   $('#TeamB').attr('src', uri); 
+					   
+					   uri = baseUrl+"/compare_user_profile_details.php?problem="+problemName;
+					   res = encodeURI(uri);
+					   $('#UserA').attr('src', res); 
+					   $('#UserB').attr('src', res); 
+					   
 					   console.log(inp.value);
                        /*close the list of autocompleted values,
                        (or any other open lists of autocompleted values:*/
@@ -301,10 +318,14 @@
            
          }
          
-         
+         var getUrl = window.location;
+		 var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+		 
          window.onload = function() {
+			 
+			 
          $('.col-lg-12').width();
-         	console.log("Initiating...");
+         	console.log("Initiating: "+baseUrl);
             var dataString = 'test';
             $.ajax({
                 type:'POST',
@@ -404,6 +425,20 @@ Highcharts.chart('container', {
 	  events: {
 		click: function () {
 			//testObject=this;
+		   var uri = baseUrl+"/tags_questions_A.php?problem="+globalProblemParent+"&team="+event.point.category;
+		   var res = encodeURI(uri);
+		   
+		   if(trackTeam%2==0)
+		   {
+			   $('#TeamB').attr('src', uri); 
+		   }
+		   else
+		   {
+			  $('#TeamA').attr('src', uri);   
+		   }
+		   
+		   trackTeam = trackTeam+1;
+		   
 			copyToClipboard(event.point.category);
 			console.log('Category: ' + event.point.category);
 		}
@@ -435,6 +470,7 @@ Highcharts.chart('container', {
   }
   
   function copyToClipboardProblem() {
+	
     //window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
 	  var $temp = $("<input>");
 	  $("body").append($temp);

@@ -191,7 +191,9 @@ float: right;
 
 <script src="http://d3js.org/d3.v4.min.js" type="text/javascript"></script>
 <script src="http://d3js.org/d3-selection-multi.v1.js"></script>
-      <script src="code/highcharts.js"></script>
+<script src="code/highcharts.js"></script>
+
+
 <script type="text/javascript">
 	
 	  var globalProblem=null;
@@ -209,11 +211,11 @@ float: right;
         data:dataString,
         url:'getdata.php',
         success:function(data) {
-			console.log(data);
+			//console.log(data);
 			var obj1 = JSON.stringify(data);
 			var obj2 = JSON.parse(data);	
 			//draw_graph(data);			
-			console.log(obj2.links);
+			//console.log(obj2.links);
 			d3.select('#myGraph').html("");
 			updateOnClick(obj2.links,obj2.nodes);
 			}
@@ -223,7 +225,7 @@ float: right;
 	
 	function getInteraction(teamName,myQuestion)
 	{
-		console.log(teamName+"===="+myQuestion);
+		//console.log(teamName+"===="+myQuestion);
 		//svg.selectAll("*").remove();
 	   var dataString = 'myQuestion='+myQuestion+'&teamName='+teamName;
 	   $.ajax({
@@ -231,7 +233,7 @@ float: right;
         data:dataString,
         url:'get_team_interaction.php',
         success:function(data) {
-			console.log(data);
+			//console.log(data);
 			var obj1 = JSON.stringify(data);
 			var obj2 = JSON.parse(data);	
 			//draw_graph(data);			
@@ -510,7 +512,7 @@ function autocomplete(inp, arr) {
 				data:dataString,
 				url:'get_tags.php',
 				success:function(data) {
-					console.log(data);
+					//console.log(data);
 					var obj1 = JSON.stringify(data);
 					var obj2 = JSON.parse(data);			
 					//console.log(obj2.links);
@@ -521,7 +523,7 @@ function autocomplete(inp, arr) {
 			  globalProblem = inp.value;
 			  populateTeams(inp.value);
 			  getDataFromServer(inp.value,null);
-			  console.log(inp.value);
+			  //console.log(inp.value);
               /*close the list of autocompleted values,
               (or any other open lists of autocompleted values:*/
               closeAllLists();
@@ -620,7 +622,7 @@ inp.addEventListener("input", function(e) {
 		   //getDataFromServer(inp.value);
 		   //globalUser
 		   getInteraction(inp.value,globalProblem)
-		   console.log(inp.value);
+		   //console.log(inp.value);
 		   /*close the list of autocompleted values,
 		   (or any other open lists of autocompleted values:*/
 		   closeAllLists();
@@ -689,7 +691,7 @@ function closeAllLists(elmnt) {
 function populateTeams(myQuestion)
 {
 	
-	console.log("Check-1");
+	//console.log("Check-1");
 	var last_name = 'N/A';
 	var dataString = 'myQuestion='+myQuestion+'&last_name='+last_name;
 	
@@ -701,7 +703,7 @@ function populateTeams(myQuestion)
        success:function(data) {
 		$('.dropdown-menu').empty();
 		dataLength=data.length;
-		console.log(data.length);
+		//console.log(data.length);
 		for (var i = 0; i < data.length; i++) {
 		         		var teams=[];
 		
@@ -709,12 +711,25 @@ function populateTeams(myQuestion)
 					var teamName=data[i][1].trim();
 					teams[i]=teamName;
 				}
-				console.log("------>"+teams);
+				//console.log("------>"+teams);
 				autocompleteTeam(document.getElementById("myInputTeam"), teams);
 		}
 		
 		}
 	});
+}
+
+
+function getParamValue(paramName)
+{
+    var url = window.location.search.substring(1); //get rid of "?" in querystring
+    var qArray = url.split('&'); //get key-value pairs
+    for (var i = 0; i < qArray.length; i++) 
+    {
+        var pArr = qArray[i].split('='); //split key and value
+        if (pArr[0] == paramName) 
+            return pArr[1]; //return value
+    }
 }
 
 window.onload = function() {
@@ -731,7 +746,7 @@ window.onload = function() {
 		for (var i = 0; i < data.length; i++) {
             questions[i]=data[i];
         }
-		console.log(questions);
+		//console.log(questions);
 		autocomplete(document.getElementById("myInput"), questions);
 		//var questions=[data];
 		//questions = data;
@@ -739,23 +754,40 @@ window.onload = function() {
 		}
 	});
 	
-	var problem = 'Drug Interdiction';
-	var dataString = 'problem='+problem;
+	var getProblemFromParent = getParamValue("problem");
+	var getTeamFromParent = getParamValue("team");
+	var decodedProblem = decodeURI(getProblemFromParent);
+	var decodedTeam = decodeURI(getTeamFromParent);
+	console.log("->"+decodedProblem+" | "+decodedTeam);
+	
+	//var problem = 'Drug Interdiction';
+	if (getProblemFromParent=="null" && getTeamFromParent=="null")
+	{
+		//Do nothing
+	}
+	else if(getTeamFromParent=="null")
+	{
+	var dataString = 'problem='+decodedProblem;
 	
 	   $.ajax({
         type:'POST',
         data:dataString,
         url:'get_tags.php',
         success:function(data) {
-			console.log(data);
+			//console.log(data);
 			var obj1 = JSON.stringify(data);
 			var obj2 = JSON.parse(data);			
 			//console.log(obj2.links);
 			update(obj2.links,obj2.nodes);
 			}
 		});
-		
-		getDataFromServer("Drug Interdiction",null);
+		getDataFromServer(decodedProblem,null);
+	}
+	else
+	{
+		getInteraction(decodedTeam,decodedProblem);
+		getDataFromServer(decodedProblem,decodedTeam);
+	}
 	
 };
 
@@ -780,9 +812,6 @@ function printQuestions(questions)
 function getDataFromServer(problem,team)
 {
 	   console.log("Problem: "+problem+" | Team: "+team);
-	   
-		
-	
 	   var dataString = 'problem='+problem+"&team="+team;
 	   
 	   $.ajax({
@@ -791,7 +820,7 @@ function getDataFromServer(problem,team)
 		dataType: 'json',
         url:'get_problem_sentiments.php',
         success:function(data) {
-			console.log(data);			
+			//console.log(data);			
 			//console.log("JSON from server: "+data);
 			displayData(data);
 			}
