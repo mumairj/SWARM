@@ -7,7 +7,7 @@ import sys
 
 reload(sys)  
 sys.setdefaultencoding('utf8')
-
+#testing commit via unimelb's git: Masters research lab! (M. Umair)
 try:
     conn = psycopg2.connect("dbname='swarm' user='postgres' host='127.0.0.1' password='root'")
     print("DB Connected Successfully!")
