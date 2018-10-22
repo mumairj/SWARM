@@ -171,7 +171,7 @@ float: right;
 			var obj1 = JSON.stringify(data);
 			var obj2 = JSON.parse(data);	
 			//draw_graph(data);			
-			console.log(obj2.links);
+			//console.log(obj2.links);
 			d3.select('#myGraph').html("");
 			updateOnClick(obj2.links,obj2.nodes);
 			}
@@ -189,7 +189,7 @@ float: right;
         data:dataString,
         url:'get_team_interaction.php',
         success:function(data) {
-			console.log(data);
+			//console.log(data);
 			var obj1 = JSON.stringify(data);
 			var obj2 = JSON.parse(data);	
 			//draw_graph(data);			
@@ -576,12 +576,13 @@ window.onload = function() {
 	   dataType: 'json',
        success:function(data) {
 		
+		//console.log(data);
+		
 		var questions=[];
 		
 		for (var i = 0; i < data.length; i++) {
             questions[i]=data[i];
         }
-		console.log(questions);
 		autocomplete(document.getElementById("myInput"), questions);
 		//var questions=[data];
 		//questions = data;
@@ -597,7 +598,7 @@ window.onload = function() {
         data:dataString,
         url:'get_tags.php',
         success:function(data) {
-			console.log(data);
+			//console.log(data);
 			var obj1 = JSON.stringify(data);
 			var obj2 = JSON.parse(data);			
 			//console.log(obj2.links);
