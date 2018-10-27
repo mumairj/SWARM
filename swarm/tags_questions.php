@@ -87,11 +87,11 @@ float: right;
             <!-- Bread crumb -->
             <div class="row page-titles">
                 <div class="col-md-5 align-self-center">
-                    <h3 class="text-primary">Basics</h3> </div>
+                    <h3 class="text-primary">Interactions</h3> </div>
                 <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item">Interactions</li>
-                        <li class="breadcrumb-item active">User Tags</li>
+                        <li class="breadcrumb-item">Home</li>
+                        <li class="breadcrumb-item active">Interactions</li>
                     </ol>
                 </div>
             </div>
@@ -607,6 +607,15 @@ window.onload = function() {
 		});
 	
 };
+
+$(function(){
+
+    $("#dmenue").on('click', 'li a', function(){
+      $("#dbutton:first-child").text($(this).text());
+      $("#dbutton:first-child").val($(this).text());
+   });
+
+});
 
 
 function printQuestions(questions)

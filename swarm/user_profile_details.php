@@ -143,11 +143,12 @@
                <div class="col-md-5 align-self-center">
                   <h3 class="text-primary">Advanced</h3>
                </div>
-               <div class="col-md-7 align-self-center">
-                  <ol class="breadcrumb">
-                     <li class="breadcrumb-item active">User Profile</li>
-                  </ol>
-               </div>
+                <div class="col-md-7 align-self-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">Advanced</li>
+                        <li class="breadcrumb-item active">User Details</li>
+                    </ol>
+                </div>
             </div>
             <!-- End Bread crumb -->
             <!-- Container fluid  -->
@@ -181,7 +182,15 @@
                         <!-- /# card -->
                     </div>
                     <!-- /# column -->
-					
+			
+					<div class="col-lg-4">
+                        <div class="card">
+                            <div id="containerSentiments"></div>
+                        </div>
+                        <!-- /# card -->
+                    </div>
+                    <!-- /# column -->
+			
 					<div class="col-lg-4">
                         <div class="card">
 							<div id="containerPings"></div>
@@ -190,13 +199,7 @@
                     </div>
                     <!-- /# column -->
 
-                    <div class="col-lg-4">
-                        <div class="card">
-                            <div id="containerSentiments"></div>
-                        </div>
-                        <!-- /# card -->
-                    </div>
-                    <!-- /# column -->
+           
                 </div>
 			   
                 <div class="row bg-white m-l-0 m-r-0 box-shadow ">
@@ -564,7 +567,7 @@ function displayData(data)
   }
 });
 
-	Highcharts.chart('containerPings', {
+	Highcharts.chart('containerSentiments', {
   chart: {
     type: 'pie',
     options3d: {
@@ -592,12 +595,12 @@ function displayData(data)
   },
   series: [{
     type: 'pie',
-    name: 'Browser share',
+    name: 'Sentiments Distribution',
     data: data.sentiments
   }]
 });
 
-	Highcharts.chart('containerSentiments', {
+	Highcharts.chart('containerPings', {
   chart: {
     type: 'pie',
     options3d: {
@@ -625,7 +628,7 @@ function displayData(data)
   },
   series: [{
     type: 'pie',
-    name: 'Browser share',
+    name: 'Pings Distribution',
     data: data.pings
   }]
 });

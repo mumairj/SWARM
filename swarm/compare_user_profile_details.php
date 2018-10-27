@@ -634,7 +634,7 @@ function displayData(data)
   },
   series: [{
     type: 'pie',
-    name: 'Browser share',
+    name: 'Sentiments Distribution',
     data: data.sentiments
   }]
 });
@@ -667,7 +667,7 @@ function displayData(data)
   },
   series: [{
     type: 'pie',
-    name: 'Browser share',
+    name: 'Pings Distribution',
     data: data.pings
   }]
 });

@@ -584,6 +584,7 @@ window.onload = function() {
             questions[i]=data[i];
         }
 		autocomplete(document.getElementById("myInput"), questions);
+		$("#homeTags").addClass("active");
 		//var questions=[data];
 		//questions = data;
 		//printQuestions(questions);

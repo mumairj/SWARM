@@ -89,11 +89,12 @@
                <div class="col-md-5 align-self-center">
                   <h3 class="text-primary">Advanced</h3>
                </div>
-               <div class="col-md-7 align-self-center">
-                  <ol class="breadcrumb">
-                     <li class="breadcrumb-item active">User Profile</li>
-                  </ol>
-               </div>
+                <div class="col-md-7 align-self-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">Advanced</li>
+                        <li class="breadcrumb-item active">Problem Sentiments</li>
+                    </ol>
+                </div>
             </div>
             <!-- End Bread crumb -->
             <!-- Container fluid  -->

@@ -69,6 +69,21 @@
       }
 	  
 	  
+	  .loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+	margin: 10px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+	  
 	  
    </style>
    <!-- http://doc.jsfiddle.net/use/hacks.html#css-panel-hack -->
@@ -88,13 +103,14 @@
             <!-- Bread crumb -->
             <div class="row page-titles">
                <div class="col-md-5 align-self-center">
-                  <h3 class="text-primary">Advanced</h3>
+                  <h3 class="text-primary">Compare</h3>
                </div>
-               <div class="col-md-7 align-self-center">
-                  <ol class="breadcrumb">
-                     <li class="breadcrumb-item active">Comparision</li>
-                  </ol>
-               </div>
+                <div class="col-md-7 align-self-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">Compare</li>
+                        <li class="breadcrumb-item active">Comparision</li>
+                    </ol>
+                </div>
             </div>
             <!-- End Bread crumb -->
             <!-- Container fluid  -->
@@ -117,7 +133,7 @@
                   <!--<button id="update">Test</button>-->
                   <!-- column -->
                   <div class="col-lg-12">
-					<div id="container"></div>
+					<div id="container"> <div class="loader"></div> </div>
                   </div>
                   <!-- column -->
                </div>
@@ -132,7 +148,7 @@
                             <div class="card-title">
                                 <h4>Team Interaction A</h4>
                             </div>
-						<iframe id="TeamA" frameborder="0" scrolling="yes" width="100%" height="512" src="http://115.146.92.239/swarm/tags_questions_A.php?problem=null&team=null" > </iframe>   
+						<iframe id="TeamA" frameborder="0" scrolling="yes" width="100%" height="512" > </iframe>   
                 
                         </div>
                         <!-- /# card -->
@@ -144,7 +160,7 @@
                             <div class="card-title">
                                 <h4>Team Interaction B</h4>
                             </div>
-                    <iframe id="TeamB" frameborder="0" scrolling="yes" width="100%" height="512" src="http://115.146.92.239/swarm/tags_questions_A.php?problem=null&team=null" > </iframe>  
+                    <iframe id="TeamB" frameborder="0" scrolling="yes" width="100%" height="512" > </iframe>  
                         </div>
                         <!-- /# card -->
                     </div>
@@ -163,7 +179,7 @@
                             <div class="card-title">
                                 <h4>User Profile A</h4>
                             </div>
-						<iframe id="UserA" frameborder="0" scrolling="yes" width="100%" height="512" src="http://115.146.92.239/swarm/compare_user_profile_details.php" > </iframe>   
+						<iframe id="UserA" frameborder="0" scrolling="yes" width="100%" height="512" > </iframe>   
                 
                         </div>
                         <!-- /# card -->
@@ -175,7 +191,7 @@
                             <div class="card-title">
                                 <h4>User Profile B</h4>
                             </div>
-                    <iframe id="UserB" frameborder="0" scrolling="yes" width="100%" height="512" src="http://115.146.92.239/swarm/compare_user_profile_details.php" > </iframe>  
+                    <iframe id="UserB" frameborder="0" scrolling="yes" width="100%" height="512"  > </iframe>  
                         </div>
                         <!-- /# card -->
                     </div>
@@ -206,7 +222,7 @@
     <script src="js/lib/toastr/toastr.init.js"></script>
       <script>
 	  
-	  var globalProblemParent = null;
+	  var globalProblemParent = "How Did Arthur Allen Die?";
 	  var trackTeam = 1;
 	  
 	  
@@ -243,8 +259,12 @@
                        /*insert the value for the autocomplete text field:*/
                        inp.value = this.getElementsByTagName("input")[0].value;
          			   getDataFromServer(inp.value);
+					   //setTimeout();
+					   //setTimeout(getDataFromServer(inp.value), 5000);
+					   
 					   var problemName = $("#myInput").val();
 					   globalProblemParent = $("#myInput").val();
+					   
 					   var uri = baseUrl+"/tags_questions_A.php?problem="+problemName+"&team=null";
 					   var res = encodeURI(uri);
 					   $('#TeamA').attr('src', uri); 
@@ -323,7 +343,8 @@
 		 
          window.onload = function() {
 			 
-			 
+
+		
          $('.col-lg-12').width();
          	console.log("Initiating: "+baseUrl);
             var dataString = 'test';
@@ -343,7 +364,16 @@
 				}
          	});
 			
-			getDataFromServer("Drug Interdiction");
+			//getDataFromServer("Drug Interdiction");
+			
+			var uri = baseUrl+"/tags_questions_A.php?problem=How Did Arthur Allen Die?"+"&team=null";
+			  $('#TeamA').attr('src', uri); 
+			  $('#TeamB').attr('src', uri); 
+			  
+			 var uri2 = baseUrl+"/compare_user_profile_details.php?problem=How Did Arthur Allen Die?";
+			   res = encodeURI(uri2);
+			   $('#UserA').attr('src', res); 
+			   $('#UserB').attr('src', res); 
          	
          };
          
@@ -446,11 +476,11 @@ Highcharts.chart('container', {
     }
   },
   series: [{
-    name: 'Team Rating',
+    name: 'Internal Rating',
     data: data.teamrating
 
   }, {
-    name: 'OP Rating',
+    name: 'External Rating',
     data: data.onplatform
 
   }]
@@ -479,6 +509,13 @@ Highcharts.chart('container', {
 	  $temp.remove();
 	  $( "#toastr-success-top-right" ).trigger( "click" );
   }
+  
+   setTimeout(function(){
+      //deferred onload
+	  $(".loader").hide();
+	  getDataFromServer("How Did Arthur Allen Die?");
+    }, 3000);
+	
 		 
          
       </script>
