@@ -9,6 +9,7 @@ gunzip swarm_dump.sql.gz
 sudo -u postgres psql -a -f swarm_dump.sql
 sudo -u postgres psql -d swarm -a -f swarm_custom_tables.sql
 sudo -u postgres psql -d swarm -a -f swarm_scores_insert.sql
+sudo -u postgres psql -d swarm -a -f swarm_listener_functions.sql
 sudo apt install apache2 -y
 sudo ufw allow in "Apache Full"
 sudo apt install -y php7.2
