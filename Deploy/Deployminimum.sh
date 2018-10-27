@@ -45,4 +45,7 @@ echo ""
 echo ""
 echo ""
 echo $var
+nohup python PSQLListener.py &
+nohup python PSQLListenerTags.py &
+echo 'Listeners up and running...'
 #sed -i 's/\r//' Deployminimum.sh
