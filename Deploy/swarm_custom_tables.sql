@@ -23,6 +23,15 @@ alter function strip_tags(text)
 
 
 -- auto-generated definition
+
+drop table if exists chunk_last_updated;
+CREATE TABLE chunk_last_updated
+(
+    id uuid,
+    timestamp bigint,
+    type varchar
+);
+
 drop table if exists swarm_scores;
 create table swarm_scores
 (

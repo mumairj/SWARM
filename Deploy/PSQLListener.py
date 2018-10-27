@@ -4,6 +4,7 @@ import psycopg2.extensions
 import json
 import uuid
 import sys
+import time
 from textblob import TextBlob
 
 reload(sys)  
@@ -44,9 +45,12 @@ while 1:
             print("--->",json_data['id'])
             print("--->",json_data['variant'])
             print("--->",json_data['content'])
+            timeNow=int(time.time())
+            print('This->',timeNow)
             sentiment = checkSentiment(json_data['content']);
             curInsert = conn.cursor()
-            insert_statement = "insert into chunk_last_updated values('"+json_data['id']+"',10005)"
+            curInsert.execute("delete from chunk_last_updated where type='sentiment'")
+            insert_statement = "insert into chunk_last_updated values('"+json_data['id']+"',"+str(timeNow)+",'sentiment')"
             curInsert.execute(insert_statement)
             curInsert = conn.cursor()
             insert_statement = "insert into chunk_sentiment values('"+json_data['id']+"','"+sentiment+"')"

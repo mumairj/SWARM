@@ -5,6 +5,8 @@ import psycopg2.extras
 import json
 import uuid
 import sys
+import time
+
 from textblob import TextBlob
 
 reload(sys)  
@@ -36,11 +38,14 @@ while 1:
             print("--->",json_data['chunk_uuid'])
             print("--->",json_data['user_display_name'])
             print("--->",json_data['content'])
+            timeNow=int(time.time())
+            print('This->',timeNow)
             content = json_data['content']
             user_display_name = json_data['user_display_name']
             chunk_uuid = json_data['chunk_uuid']
             curInsert = conn.cursor()
-            insert_statement = "insert into chunk_last_updated values('"+chunk_uuid+"',10005)"
+            curInsert.execute("delete from chunk_last_updated where type='tag'")
+            insert_statement = "insert into chunk_last_updated values('"+chunk_uuid+"',"+str(timeNow)+",'tag')"
             curInsert.execute(insert_statement)
             curSelect.execute("select distinct display_name from \"user\"")
             rows = curSelect.fetchall()
