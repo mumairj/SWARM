@@ -1,0 +1,17 @@
+Script:
+
+1) Launch an instance on Nectar.
+
+2) SSH into it.
+
+3) Update and Install Git.
+
+4) Clone SWARM.
+
+5) Run Deployminimum.sh
+
+6) Check if website is up and running.
+
+7) Check python listeners.
+
+8) Deployment complete.
