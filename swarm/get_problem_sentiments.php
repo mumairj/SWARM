@@ -20,6 +20,11 @@ else
 $problem = $_POST['problem'];
 $team = $_POST['team'];
 
+/* 
+SQL check implemented to show only latest processed results on analytics server 
+"view_comments_sentiments_problemwise" and "view_comments_sentiments" are based on "view_comments" 
+which is a view that already has this check implemented for data integrity.
+*/
 
 if($team=='null')
 {

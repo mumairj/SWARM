@@ -610,6 +610,15 @@ window.onload = function() {
 };
 
 
+$(function(){
+
+    $("#dmenue").on('click', 'li a', function(){
+      $("#dbutton:first-child").text($(this).text());
+      $("#dbutton:first-child").val($(this).text());
+   });
+
+}); 
+
 function printQuestions(questions)
 {
 	console.log(questions);

@@ -18,8 +18,14 @@ else
     //echo "Opened database successfully\n";
 }
 
+/* 
+SQL check implemented to show only latest processed results on analytics server 
+i.e. (last_edited/1000)<=(select max(timestamp) from chunk_last_updated)
+Getting the max datetime of processed chunks.
+*/
+
 $sql = <<<EOF
-select distinct title from chunk where parent_id is null and deleted=false;
+select distinct title from chunk where parent_id is null and deleted=false and (last_edited/1000)<=(select max(timestamp) from chunk_last_updated);
 EOF;
 
 $ret = pg_query($db, $sql);

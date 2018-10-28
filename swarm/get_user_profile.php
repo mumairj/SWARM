@@ -19,6 +19,15 @@ else
 
 $displayName = $_POST['user'];
 
+/* 
+SQL check implemented to show only latest processed results on analytics server 
+i.e. (c.last_edited/1000)<=(select timestamp from chunk_last_updated where type='sentiment')
+since we are intersted in posts we will display data less than the last sentiment
+on a particular post that was processed.
+Note: chunk_last_updated will always contain 2 records i.e. one for the last processed post's sentiment,
+and one for the last processed post's tag.
+*/
+
 $sql = <<<EOF
 select
        userprob.problem,
@@ -30,21 +39,21 @@ select
        (coalesce(userhyp.sum,0)+coalesce(usercomm.sum,0)+coalesce(userdesc.sum,0)) total_posts
 from
 (select c.title problem,t.title as team,t.display_name as member,c.id as problem_id,t.team_id,t.user_id from team_members t inner join chunk_user_group_relation cugr on t.team_id=cugr.user_group_id inner join chunk c on c.id=cugr.chunk_id where c.deleted=false and
-display_name='$displayName'
+display_name='$displayName' and (c.last_edited/1000)<=(select timestamp from chunk_last_updated where type='sentiment')
 )userprob
 left join
 (select coalesce(cpr1.parent_id,X.parent_id),c.title as problem_title,X.variant,sum(X.count) from( select parent_id,variant,count(*) from chunk_swarm c
-where display_name='$displayName'
+where display_name='$displayName' and (c.last_edited/1000)<=(select timestamp from chunk_last_updated where type='sentiment')
 group by parent_id,variant)X left join chunk_parent_relation cpr1 on cpr1.child_id=X.parent_id inner join chunk c on c.id=coalesce(cpr1.parent_id,X.parent_id) group by coalesce(cpr1.parent_id,X.parent_id),c.title ,X.variant
 )userhyp on userprob.problem=userhyp.problem_title and userhyp.variant='hypothesis'
 left join
 (select coalesce(cpr1.parent_id,X.parent_id),c.title as problem_title,X.variant,sum(X.count) from( select parent_id,variant,count(*) from chunk_swarm c
-where display_name='$displayName'
+where display_name='$displayName' and (c.last_edited/1000)<=(select timestamp from chunk_last_updated where type='sentiment')
 group by parent_id,variant)X left join chunk_parent_relation cpr1 on cpr1.child_id=X.parent_id inner join chunk c on c.id=coalesce(cpr1.parent_id,X.parent_id) group by coalesce(cpr1.parent_id,X.parent_id),c.title ,X.variant
 )usercomm on userprob.problem=usercomm.problem_title and usercomm.variant='comment'
 left join
 (select coalesce(cpr1.parent_id,X.parent_id),c.title as problem_title,X.variant,sum(X.count) from( select parent_id,variant,count(*) from chunk_swarm c
-where display_name='$displayName'
+where display_name='$displayName' and (c.last_edited/1000)<=(select timestamp from chunk_last_updated where type='sentiment')
 group by parent_id,variant)X left join chunk_parent_relation cpr1 on cpr1.child_id=X.parent_id inner join chunk c on c.id=coalesce(cpr1.parent_id,X.parent_id) group by coalesce(cpr1.parent_id,X.parent_id),c.title ,X.variant
 )userdesc on userprob.problem=userdesc.problem_title and userdesc.variant='text';
 EOF;

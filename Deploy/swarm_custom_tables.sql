@@ -207,7 +207,7 @@ alter table view_prob_hyp_comm_desc_team
       JOIN chunk problem_chunk ON ((problem_chunk.id = problem.parent_id)))
       JOIN chunk hypothesis_chunk ON ((hypothesis_chunk.id = cpr.parent_id)))
       JOIN perm_user_group pug ON ((pug.id = cugr.user_group_id)))
-  WHERE ((c.variant) :: text = 'comment' :: text);
+  WHERE ((c.variant) :: text = 'comment' :: text) and (c.last_edited/1000)<=(select timestamp from chunk_last_updated where type='sentiment');
 
 alter table view_comments
   owner to postgres;

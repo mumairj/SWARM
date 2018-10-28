@@ -19,13 +19,15 @@ else
 
 $myQuestion = $_POST['myQuestion'];
 
+/*Get all teams for a problem.*/
+
 $sql =<<<EOF
     select
     distinct pug.id,pug.title
 	from chunk c
 	inner join chunk_user_group_relation cugr on c.id = cugr.chunk_id
 	inner join perm_user_group pug on pug.id=cugr.user_group_id
-	where c.title='$myQuestion'
+	where c.title='$myQuestion' 
 EOF;
 
 $ret = pg_query($db, $sql);
