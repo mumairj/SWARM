@@ -1,7 +1,9 @@
 # SWARM
 *SWARM Project*
 
-- Deployment steps video demonstration: https://youtu.be/DeHD-PgK_bk
+Deployment Steps Video Demonstration
+----
+https://youtu.be/DeHD-PgK_bk
 
 - Launch an ubuntu instance and write the following commands (in order):
 
