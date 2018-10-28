@@ -1,4 +1,8 @@
-# SWARM Deployment Commands
+SWARM Website URL
+---
+http://115.146.93.213/swarm/
+
+SWARM Deployment Commands
 ----
 Launch an ubuntu instance and write the following commands (in order):
 ```
@@ -19,5 +23,6 @@ Deployment Steps Video Demonstration
 ----
 https://youtu.be/DeHD-PgK_bk
 
-
-
+SWARM Video Demonstration (Analytics Dashboard)
+---
+https://youtu.be/3lR8yiCnnH4
